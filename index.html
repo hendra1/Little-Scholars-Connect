@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Plan: School App</title>
+    <!-- Chosen Palette: Professional Childcare (Warm neutrals: bg-gray-50, text-gray-800, primary: orange-600, secondary: gray-700) -->
+    <!-- Application Structure Plan: A single-page, tabbed dashboard. The main navigation (Overview, Strategy, Roadmap, Timeline, Risks) allows users to explore the project plan logically. The "Roadmap" section will use interactive tabs (MVP / Post-Launch) to clarify the phased strategy. The "Timeline" section will feature a dynamic Chart.js Gantt chart, allowing users to visualize the 9-month schedule. This tabbed, dashboard-like structure is chosen to break down a complex project plan into manageable, interactive sections, directly addressing the client's need for a clear "timeline and strategy." -->
+    <!-- Visualization & Content Choices: 1. Feature Roadmap (Organize): HTML/CSS tabs used to switch between "MVP (Aug 2026)" and "Post-Launch (Phase 2)" content. Interaction: Clicking tabs. Justification: Clearly separates the critical path from future enhancements, which is essential for a tight deadline. 2. Project Timeline (Change/Schedule): Chart.js horizontal bar chart configured as a Gantt chart. Interaction: Tooltips on hover. Justification: Provides a clear, industry-standard visual representation of the project's phases over the 9-month duration. 3. Risk Matrix (Organize): Styled HTML table (Tailwind) with color-coding for severity. Interaction: None (static info). Justification: Clearly presents risks and mitigation strategies. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- using the bundled adapter to prevent dependency issues -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .tab-button.active {
+            border-bottom-color: #EA580C;
+            color: #EA580C;
+            font-weight: 600;
+        }
+        .tab-button {
+            border-bottom-width: 3px;
+            border-bottom-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold text-orange-600">Project Plan: "Little Scholars Connect"</h1>
+            <p class="text-xl text-gray-600 mt-2">A strategic timeline for your school's new React Native application.</p>
+        </header>
+
+        <nav class="mb-8 bg-white rounded-lg shadow-sm">
+            <div class="flex border-b border-gray-200" id="main-tabs">
+                <button class="tab-button p-4 active" onclick="showMainTab('overview')">Overview</button>
+                <button class="tab-button p-4" onclick="showMainTab('strategy')">Core Strategy</button>
+                <button class="tab-button p-4" onclick="showMainTab('roadmap')">Feature Roadmap</button>
+                <button class="tab-button p-4" onclick="showMainTab('timeline')">Project Timeline</button>
+                <button class="tab-button p-4" onclick="showMainTab('risks')">Risks & Mitigation</button>
+            </div>
+        </nav>
+
+        <main id="main-content">
+            
+            <div id="overview-content" class="main-tab-content space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Project Overview</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        This document outlines the development plan for a new mobile application for your school, targeting children aged 6 months to 3 years. The app will serve two primary user roles: School Admins/Teachers and Parents. The goal is to create a seamless, easy-to-use platform that enhances communication, tracks daily activities, and monitors child development, ultimately delivering a superior UI/UX compared to existing market solutions.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-semibold text-gray-900 text-lg">Critical Deadline</h3>
+                        <p class="text-orange-600 text-2xl font-bold mt-2">End of August 2026</p>
+                        <p class="text-gray-600 text-sm mt-1">Ready for new school year opening.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-semibold text-gray-900 text-lg">Technology Stack</h3>
+                        <p class="text-gray-900 text-2xl font-bold mt-2">React Native</p>
+                        <p class="text-gray-600 text-sm mt-1">For cross-platform (iOS & Android) development.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-semibold text-gray-900 text-lg">Key Challenge</h3>
+                        <p class="text-gray-900 text-2xl font-bold mt-2">~9 Month Timeline</p>
+                        <p class="text-gray-600 text-sm mt-1">Aggressive schedule from Nov 2025 to Aug 2026.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="strategy-content" class="main-tab-content space-y-6 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Achieving the August 2026 Deadline: A Phased MVP Strategy</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Given the firm 9-month deadline and the request for a high-quality, "better UI/UX" application, a standard development approach is high-risk. A rushed project inevitably leads to poor user experience, bugs, and missed deadlines.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed font-semibold">
+                        Therefore, our core strategy is to launch with a focused <span class="text-orange-600">Minimum Viable Product (MVP)</span>.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mt-2">
+                        This strategy ensures we deliver the most critical features flawlessly for your school's opening. It prioritizes stability, usability, and the core-value propositions. More complex, secondary features will be developed and released in "Phase 2," immediately following the initial launch.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
+                        <h3 class="font-semibold text-gray-900 text-lg">1. Focus on Core Value</h3>
+                        <p class="text-gray-600 mt-2">We will prioritize what parents and teachers need on Day 1: reliable attendance, clear communication (broadcasts & 1-to-1 chat), and daily activity reports.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
+                        <h3 class="font-semibold text-gray-900 text-lg">2. Guarantee a "Better UI/UX"</h3>
+                        <p class="text-gray-600 mt-2">This strategy allocates a dedicated 7-week block for UI/UX design and prototyping. We will get client and user feedback *before* development starts, which is critical to meeting your goal.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
+                        <h3 class="font-semibold text-gray-900 text-lg">3. De-Risk Complex Features</h3>
+                        <p class="text-gray-600 mt-2">Features like the Vaccination Book and comparative development charts have complex logic. Deferring them to Phase 2 prevents a rushed implementation and protects the launch deadline.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="roadmap-content" class="main-tab-content space-y-6 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Phased Feature Roadmap</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        This interactive roadmap details the precise features planned for the initial launch (MVP) versus those planned for the rapid follow-up release (Phase 2). This ensures clarity and manages scope effectively.
+                    </p>
+                    
+                    <nav class="flex border-b border-gray-300 mb-6" id="roadmap-tabs">
+                        <button class="tab-button px-6 py-3 text-lg active" onclick="showRoadmapTab('mvp')">MVP (Launch by Aug 2026)</button>
+                        <button class="tab-button px-6 py-3 text-lg" onclick="showRoadmapTab('phase2')">Phase 2 (Post-Launch)</button>
+                    </nav>
+
+                    <div id="mvp-roadmap" class="roadmap-tab-content">
+                        <ul class="list-disc list-inside space-y-3 text-gray-700">
+                            <li><strong class="text-gray-900">User Authentication:</strong> Secure login for Parents and Teachers/Admins.</li>
+                            <li><strong class="text-gray-900">Attendance:</strong> Teacher/Admin ability to check-in and check-out children. Parents see real-time status.</li>
+                            <li><strong class="text-gray-900">Information Broadcast:</strong> Admin/Teacher posts announcements (text + images) to all parents or specific classes.</li>
+                            <li><strong class="text-gray-900">Parent-Teacher Chat (Basic):</strong> 1-to-1 text-based messaging between a parent and their child's teacher.</li>
+                            <li><strong class="text-gray-900">Activity Summary:</strong> Teachers post daily updates (text, photos) for each child. Parents view a chronological feed.</li>
+                            <li><strong class="text-gray-900">Child Development (Basic):</strong> Manual entry for Height & Weight. A simple list view of historical data.</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="phase2-roadmap" class="roadmap-tab-content hidden">
+                        <ul class="list-disc list-inside space-y-3 text-gray-700">
+                            <li><strong class="text-gray-900">Chat (Advanced):</strong> Group chats, read receipts, and support for file/video attachments.</li>
+                            <li><strong class="text-gray-900">Activity Summary (Advanced):</strong> Tagged photo albums, search/filter by date, and ability to download media.</li>
+                            <li><strong class="text-gray-900">Vaccination Book:</strong> Digital tracking of vaccination records with reminder notifications for upcoming shots.</li>
+                            <li><strong class="text-gray-900">Child Development (Advanced):</strong>
+                                <ul class="list-disc list-inside ml-6 mt-1 space-y-1">
+                                    <li>Visual growth charts comparing height/weight against expected measures (WHO standards).</li>
+                                    <li>Developmental milestone tracking (e.g., motor, social) with input from both teachers and parents.</li>
+                                </ul>
+                            </li>
+                            <li><strong class="text-gray-900">Advanced Admin Portal:</strong> School-wide analytics and reporting dashboards.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="timeline-content" class="main-tab-content space-y-6 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Interactive Project Timeline</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        This Gantt chart visualizes the complete project schedule from November 2025 to the launch in August 2026. This aggressive, 9-month timeline is built around the MVP strategy to ensure all critical path items are completed.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="ganttChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="risks-content" class="main-tab-content space-y-6 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Key Risks & Mitigation Plan</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        Proactive risk management is essential for a project with this timeline and high-quality expectations. Here are the top identified risks and our mitigation strategies.
+                    </p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Severity</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mitigation Strategy</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Scope Creep</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-red-100 text-red-800 font-medium">High</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Strict adherence to the signed-off MVP roadmap. All new feature requests will be acknowledged and added to the "Phase 2" backlog for prioritization post-launch.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Aggressive 9-Month Timeline</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-red-100 text-red-800 font-medium">High</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Adoption of Agile (Scrum) with 2-week sprints for rapid iteration. The timeline includes a 4-week buffer for App Store submission and final testing.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Subjective UI/UX Goal</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 font-medium">Medium</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">The 7-week dedicated UI/UX phase will produce high-fidelity, *clickable prototypes* (e.g., in Figma) for client review and approval *before* any development begins.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Chat & Dev Tracking Complexity</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 font-medium">Medium</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Mitigated by the MVP strategy. We will implement simplified, stable versions first (1-to-1 chat, manual H/W entry) and defer complex logic (group chat, auto-charting) to Phase 2.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const mainTabs = {
+            'overview': document.getElementById('overview-content'),
+            'strategy': document.getElementById('strategy-content'),
+            'roadmap': document.getElementById('roadmap-content'),
+            'timeline': document.getElementById('timeline-content'),
+            'risks': document.getElementById('risks-content'),
+        };
+        const mainTabButtons = document.querySelectorAll('#main-tabs .tab-button');
+
+        function showMainTab(tabName) {
+            Object.values(mainTabs).forEach(tab => tab.classList.add('hidden'));
+            mainTabs[tabName].classList.remove('hidden');
+            
+            mainTabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#main-tabs .tab-button[onclick="showMainTab('${tabName}')"]`).classList.add('active');
+        }
+
+        const roadmapTabs = {
+            'mvp': document.getElementById('mvp-roadmap'),
+            'phase2': document.getElementById('phase2-roadmap'),
+        };
+        const roadmapTabButtons = document.querySelectorAll('#roadmap-tabs .tab-button');
+
+        function showRoadmapTab(tabName) {
+            Object.values(roadmapTabs).forEach(tab => tab.classList.add('hidden'));
+            roadmapTabs[tabName].classList.remove('hidden');
+            
+            roadmapTabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#roadmap-tabs .tab-button[onclick="showRoadmapTab('${tabName}')"]`).classList.add('active');
+        }
+
+        window.onload = function() {
+            const ctx = document.getElementById('ganttChart').getContext('2d');
+            
+            const data = {
+                labels: [
+                    'Phase 1: Discovery & Strategy',
+                    'Phase 2: UI/UX Design',
+                    'Phase 3: Backend & Setup',
+                    'Phase 4: Development (Sprints)',
+                    'Phase 5: QA & UAT',
+                    'Phase 6: Deployment & Buffer',
+                ],
+                datasets: [
+                    {
+                        label: 'Project Phases',
+                        data: [
+                            [new Date('2025-11-25'), new Date('2025-12-20')], 
+                            [new Date('2025-12-23'), new Date('2026-02-07')],
+                            [new Date('2026-01-13'), new Date('2026-02-14')],
+                            [new Date('2026-02-09'), new Date('2026-06-13')],
+                            [new Date('2026-06-15'), new Date('2026-07-25')],
+                            [new Date('2026-07-27'), new Date('2026-08-22')],
+                        ],
+                        backgroundColor: [
+                            'rgba(234, 88, 12, 0.7)',
+                            'rgba(2, 132, 199, 0.7)',
+                            'rgba(107, 114, 128, 0.7)',
+                            'rgba(234, 88, 12, 0.7)',
+                            'rgba(2, 132, 199, 0.7)',
+                            'rgba(16, 185, 129, 0.7)',
+                        ],
+                        borderColor: [
+                            'rgba(234, 88, 12, 1)',
+                            'rgba(2, 132, 199, 1)',
+                            'rgba(107, 114, 128, 1)',
+                            'rgba(234, 88, 12, 1)',
+                            'rgba(2, 132, 199, 1)',
+                            'rgba(16, 185, 129, 1)',
+                        ],
+                        borderWidth: 1,
+                        barPercentage: 0.6,
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    indexAxis: 'y',
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const item = context.raw;
+                                    // Use native JS to avoid library dependency issues
+                                    const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+                                    const from = new Date(item[0]).toLocaleDateString('en-US', dateOptions);
+                                    const to = new Date(item[1]).toLocaleDateString('en-US', dateOptions);
+                                    return `${context.label}: ${from} - ${to}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'month',
+                                displayFormats: {
+                                    month: 'MMM yyyy'
+                                }
+                            },
+                            min: '2025-11-21',
+                            max: '2026-08-31',
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            },
+                            grid: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            };
+
+            const ganttChart = new Chart(ctx, config);
+        };
+    </script>
+</body>
+</html>
