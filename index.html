@@ -3,203 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Plan: School App</title>
-    <!-- Chosen Palette: Professional Childcare (Warm neutrals: bg-gray-50, text-gray-800, primary: orange-600, secondary: gray-700) -->
-    <!-- Application Structure Plan: A single-page, tabbed dashboard. The main navigation (Overview, Strategy, Roadmap, Timeline, Risks) allows users to explore the project plan logically. The "Roadmap" section will use interactive tabs (MVP / Post-Launch) to clarify the phased strategy. The "Timeline" section will feature a dynamic Chart.js Gantt chart, allowing users to visualize the 9-month schedule. This tabbed, dashboard-like structure is chosen to break down a complex project plan into manageable, interactive sections, directly addressing the client's need for a clear "timeline and strategy." -->
-    <!-- Visualization & Content Choices: 1. Feature Roadmap (Organize): HTML/CSS tabs used to switch between "MVP (Aug 2026)" and "Post-Launch (Phase 2)" content. Interaction: Clicking tabs. Justification: Clearly separates the critical path from future enhancements, which is essential for a tight deadline. 2. Project Timeline (Change/Schedule): Chart.js horizontal bar chart configured as a Gantt chart. Interaction: Tooltips on hover. Justification: Provides a clear, industry-standard visual representation of the project's phases over the 9-month duration. 3. Risk Matrix (Organize): Styled HTML table (Tailwind) with color-coding for severity. Interaction: None (static info). Justification: Clearly presents risks and mitigation strategies. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Little Scholars Connect - Project Plan</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js & Adapters -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-    <!-- using the bundled adapter to prevent dependency issues -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        .chart-container {
+        
+        /* Hero Section Styling - Updated with reliable image */
+        .hero-bg {
+            background-image: linear-gradient(to right, rgba(255, 247, 237, 0.95), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center 30%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tab Transitions */
+        .tab-btn {
             position: relative;
+            transition: all 0.3s ease;
+        }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background-color: #ea580c;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .tab-btn.active {
+            color: #ea580c;
+        }
+        .tab-btn.active::after {
             width: 100%;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 400px;
-            max-height: 50vh;
         }
-        .tab-button.active {
-            border-bottom-color: #EA580C;
-            color: #EA580C;
-            font-weight: 600;
+        .tab-btn:hover {
+            color: #c2410c;
+            background-color: rgba(255, 237, 213, 0.3);
         }
-        .tab-button {
-            border-bottom-width: 3px;
-            border-bottom-color: transparent;
+
+        /* Card Hover Effects */
+        .hover-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="text-slate-600 antialiased">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+    <!-- Hero Header -->
+    <div class="hero-bg border-b border-orange-100">
+        <div class="container mx-auto px-4 py-12 md:py-16 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-orange-200 text-orange-700 text-xs font-bold uppercase tracking-wide mb-4 shadow-sm">
+                        <i class="fa-solid fa-rocket"></i> Launch Strategy 2026
+                    </div>
+                    <h1 class="font-heading text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+                        Little Scholars <span class="text-brand-600">Connect</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mt-3 max-w-2xl font-light">
+                        A strategic roadmap to build a unified, cross-platform mobile experience for parents and educators.
+                    </p>
+                </div>
+                <!-- Summary Stats Pills -->
+                <div class="flex gap-3 flex-wrap">
+                     <div class="bg-white/90 backdrop-blur rounded-xl p-4 shadow-sm border border-orange-100 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                            <i class="fa-solid fa-calendar-check text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold uppercase">Launch</p>
+                            <p class="font-bold text-slate-800">Aug 2026</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur rounded-xl p-4 shadow-sm border border-orange-100 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                            <i class="fa-solid fa-wallet text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold uppercase">Budget Cap</p>
+                            <p class="font-bold text-slate-800">&lt; 200M IDR</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto px-4 -mt-8 relative z-10 max-w-7xl pb-20">
         
-        <header class="mb-8">
-            <h1 class="text-4xl font-bold text-orange-600">Project Plan: "Little Scholars Connect"</h1>
-            <p class="text-xl text-gray-600 mt-2">A strategic timeline for your school's new React Native application.</p>
-        </header>
-
-        <nav class="mb-8 bg-white rounded-lg shadow-sm">
-            <div class="flex border-b border-gray-200" id="main-tabs">
-                <button class="tab-button p-4 active" onclick="showMainTab('overview')">Overview</button>
-                <button class="tab-button p-4" onclick="showMainTab('strategy')">Core Strategy</button>
-                <button class="tab-button p-4" onclick="showMainTab('roadmap')">Feature Roadmap</button>
-                <button class="tab-button p-4" onclick="showMainTab('timeline')">Project Timeline</button>
-                <button class="tab-button p-4" onclick="showMainTab('risks')">Risks & Mitigation</button>
+        <!-- Navigation -->
+        <nav class="bg-white rounded-2xl shadow-lg border border-slate-100 p-2 mb-8 overflow-x-auto">
+            <div class="flex min-w-max" id="main-tabs">
+                <button class="tab-btn flex items-center gap-2 px-6 py-3 font-semibold text-brand-600 active" onclick="showMainTab(this, 'overview')">
+                    <i class="fa-solid fa-binoculars"></i> Overview
+                </button>
+                <button class="tab-btn flex items-center gap-2 px-6 py-3 font-semibold text-slate-500" onclick="showMainTab(this, 'strategy')">
+                    <i class="fa-solid fa-chess"></i> Strategy
+                </button>
+                <button class="tab-btn flex items-center gap-2 px-6 py-3 font-semibold text-slate-500" onclick="showMainTab(this, 'roadmap')">
+                    <i class="fa-solid fa-map-location-dot"></i> Roadmap
+                </button>
+                <button class="tab-btn flex items-center gap-2 px-6 py-3 font-semibold text-slate-500" onclick="showMainTab(this, 'timeline')">
+                    <i class="fa-solid fa-timeline"></i> Timeline
+                </button>
+                <button class="tab-btn flex items-center gap-2 px-6 py-3 font-semibold text-slate-500" onclick="showMainTab(this, 'cost')">
+                    <i class="fa-solid fa-coins"></i> Budget
+                </button>
+                <button class="tab-btn flex items-center gap-2 px-6 py-3 font-semibold text-slate-500" onclick="showMainTab(this, 'risks')">
+                    <i class="fa-solid fa-shield-halved"></i> Risks
+                </button>
             </div>
         </nav>
 
+        <!-- Dynamic Content -->
         <main id="main-content">
-            
-            <div id="overview-content" class="main-tab-content space-y-6">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Project Overview</h2>
-                    <p class="text-gray-700 leading-relaxed">
-                        This document outlines the development plan for a new mobile application for your school, targeting children aged 6 months to 3 years. The app will serve two primary user roles: School Admins/Teachers and Parents. The goal is to create a seamless, easy-to-use platform that enhances communication, tracks daily activities, and monitors child development, ultimately delivering a superior UI/UX compared to existing market solutions.
-                    </p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="font-semibold text-gray-900 text-lg">Critical Deadline</h3>
-                        <p class="text-orange-600 text-2xl font-bold mt-2">End of August 2026</p>
-                        <p class="text-gray-600 text-sm mt-1">Ready for new school year opening.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="font-semibold text-gray-900 text-lg">Technology Stack</h3>
-                        <p class="text-gray-900 text-2xl font-bold mt-2">React Native</p>
-                        <p class="text-gray-600 text-sm mt-1">For cross-platform (iOS & Android) development.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="font-semibold text-gray-900 text-lg">Key Challenge</h3>
-                        <p class="text-gray-900 text-2xl font-bold mt-2">~9 Month Timeline</p>
-                        <p class="text-gray-600 text-sm mt-1">Aggressive schedule from Nov 2025 to Aug 2026.</p>
-                    </div>
-                </div>
-            </div>
 
-            <div id="strategy-content" class="main-tab-content space-y-6 hidden">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Achieving the August 2026 Deadline: A Phased MVP Strategy</h2>
-                    <p class="text-gray-700 leading-relaxed mb-4">
-                        Given the firm 9-month deadline and the request for a high-quality, "better UI/UX" application, a standard development approach is high-risk. A rushed project inevitably leads to poor user experience, bugs, and missed deadlines.
-                    </p>
-                    <p class="text-gray-700 leading-relaxed font-semibold">
-                        Therefore, our core strategy is to launch with a focused <span class="text-orange-600">Minimum Viable Product (MVP)</span>.
-                    </p>
-                    <p class="text-gray-700 leading-relaxed mt-2">
-                        This strategy ensures we deliver the most critical features flawlessly for your school's opening. It prioritizes stability, usability, and the core-value propositions. More complex, secondary features will be developed and released in "Phase 2," immediately following the initial launch.
-                    </p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
-                        <h3 class="font-semibold text-gray-900 text-lg">1. Focus on Core Value</h3>
-                        <p class="text-gray-600 mt-2">We will prioritize what parents and teachers need on Day 1: reliable attendance, clear communication (broadcasts & 1-to-1 chat), and daily activity reports.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
-                        <h3 class="font-semibold text-gray-900 text-lg">2. Guarantee a "Better UI/UX"</h3>
-                        <p class="text-gray-600 mt-2">This strategy allocates a dedicated 7-week block for UI/UX design and prototyping. We will get client and user feedback *before* development starts, which is critical to meeting your goal.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
-                        <h3 class="font-semibold text-gray-900 text-lg">3. De-Risk Complex Features</h3>
-                        <p class="text-gray-600 mt-2">Features like the Vaccination Book and comparative development charts have complex logic. Deferring them to Phase 2 prevents a rushed implementation and protects the launch deadline.</p>
-                    </div>
-                </div>
-            </div>
+            <!-- OVERVIEW TAB -->
+            <div id="overview-content" class="fade-in space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Left Column: Text -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                            <h2 class="font-heading text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-quote-left text-brand-500"></i> Project Vision
+                            </h2>
+                            <p class="text-lg text-slate-600 leading-relaxed">
+                                We are developing a digital ecosystem for parents and educators of children aged <strong>6 months to 3 years</strong>. 
+                                Unlike existing rigid tools, this application prioritizes <em>warmth, ease of use, and emotional connection</em> alongside operational efficiency.
+                            </p>
+                            <div class="mt-6 flex flex-wrap gap-3">
+                                <span class="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-600">React Native</span>
+                                <span class="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-600">iOS & Android</span>
+                                <span class="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-600">Indonesian Team</span>
+                            </div>
+                        </div>
 
-            <div id="roadmap-content" class="main-tab-content space-y-6 hidden">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Phased Feature Roadmap</h2>
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        This interactive roadmap details the precise features planned for the initial launch (MVP) versus those planned for the rapid follow-up release (Phase 2). This ensures clarity and manages scope effectively.
-                    </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg hover-card">
+                                <div class="text-orange-100 text-sm font-medium uppercase tracking-wider mb-1">Target Launch</div>
+                                <div class="text-3xl font-heading font-bold">Aug '26</div>
+                                <div class="mt-2 text-xs text-orange-100 bg-white/20 inline-block px-2 py-0.5 rounded">School Opening</div>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover-card group">
+                                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-users-gear text-xl"></i>
+                                </div>
+                                <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Strategy</div>
+                                <div class="text-xl font-heading font-bold text-slate-800">2-Phase MVP</div>
+                            </div>
+                             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover-card group">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-money-bill-wave text-xl"></i>
+                                </div>
+                                <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Budget</div>
+                                <div class="text-xl font-heading font-bold text-slate-800">Tiered Options</div>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <nav class="flex border-b border-gray-300 mb-6" id="roadmap-tabs">
-                        <button class="tab-button px-6 py-3 text-lg active" onclick="showRoadmapTab('mvp')">MVP (Launch by Aug 2026)</button>
-                        <button class="tab-button px-6 py-3 text-lg" onclick="showRoadmapTab('phase2')">Phase 2 (Post-Launch)</button>
-                    </nav>
+                    <!-- Right Column: Image (FIXED) -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-slate-800 rounded-2xl shadow-lg overflow-hidden h-full min-h-[300px] relative group">
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80" alt="App Dashboard Mockup" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-white font-bold text-xl">Modern Interface</h3>
+                                <p class="text-slate-300 text-sm mt-1">Focusing on superior UX for busy teachers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- STRATEGY TAB -->
+            <div id="strategy-content" class="hidden fade-in space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
+                            <i class="fa-solid fa-lightbulb text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-heading text-2xl font-bold text-slate-800">Lean Strategy: "Design First, Code Second"</h2>
+                            <p class="text-slate-600 mt-2">
+                                To fit the budget while hitting the "Better UI/UX" goal, we shift from a monthly retainer to a <span class="font-bold text-slate-900">Fixed Milestone Model</span>. We utilize BaaS (Firebase/Supabase) to minimize backend costs, allocating those savings to frontend polish.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-l-4 border-l-brand-500 border-slate-100 hover-card">
+                        <h3 class="font-bold text-lg text-slate-800 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-500"></i> 1. Design Sprint
+                        </h3>
+                        <p class="text-sm text-slate-500 mb-4">Weeks 1-7</p>
+                        <p class="text-slate-600 text-sm">We validate the "Better UX" promise before writing a single line of code. High-fidelity Figma prototypes are mandatory.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-l-4 border-l-brand-500 border-slate-100 hover-card">
+                        <h3 class="font-bold text-lg text-slate-800 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-brand-500"></i> 2. MVP Core
+                        </h3>
+                        <p class="text-sm text-slate-500 mb-4">Launch: Aug '26</p>
+                        <p class="text-slate-600 text-sm">Strict focus on operations: Attendance, Broadcasts, and Reports. Complex health logic is excluded to ensure stability.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-l-4 border-l-blue-500 border-slate-100 hover-card">
+                        <h3 class="font-bold text-lg text-slate-800 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-blue-500"></i> 3. Phase 2
+                        </h3>
+                        <p class="text-sm text-slate-500 mb-4">Finish: Nov '26</p>
+                        <p class="text-slate-600 text-sm">Post-launch, we build the "Vaccination Book" and "Growth Charts" (Tentang Anak features) without deadline pressure.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROADMAP TAB -->
+            <div id="roadmap-content" class="hidden fade-in space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+                        <h2 class="font-heading text-2xl font-bold text-slate-800">Feature Delivery Roadmap</h2>
+                        <div class="flex bg-slate-100 p-1 rounded-lg" id="roadmap-tabs">
+                            <button class="px-6 py-2 rounded-md font-semibold text-sm transition-all shadow bg-white text-brand-600" onclick="showRoadmapTab(this, 'mvp')">
+                                <i class="fa-solid fa-star mr-1"></i> Phase 1: MVP
+                            </button>
+                            <button class="px-6 py-2 rounded-md font-semibold text-sm transition-all text-slate-500 hover:text-slate-700" onclick="showRoadmapTab(this, 'phase2')">
+                                <i class="fa-solid fa-circle-plus mr-1"></i> Phase 2: Enhancements
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- MVP Content -->
                     <div id="mvp-roadmap" class="roadmap-tab-content">
-                        <ul class="list-disc list-inside space-y-3 text-gray-700">
-                            <li><strong class="text-gray-900">User Authentication:</strong> Secure login for Parents and Teachers/Admins.</li>
-                            <li><strong class="text-gray-900">Attendance:</strong> Teacher/Admin ability to check-in and check-out children. Parents see real-time status.</li>
-                            <li><strong class="text-gray-900">Information Broadcast:</strong> Admin/Teacher posts announcements (text + images) to all parents or specific classes.</li>
-                            <li><strong class="text-gray-900">Parent-Teacher Chat (Basic):</strong> 1-to-1 text-based messaging between a parent and their child's teacher.</li>
-                            <li><strong class="text-gray-900">Activity Summary:</strong> Teachers post daily updates (text, photos) for each child. Parents view a chronological feed.</li>
-                            <li><strong class="text-gray-900">Child Development (Basic):</strong> Manual entry for Height & Weight. A simple list view of historical data.</li>
+                        <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+                            <i class="fa-solid fa-info-circle text-orange-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-orange-900 text-sm">Operational Essentials</h4>
+                                <p class="text-xs text-orange-800">Must-have features for the school to function on Day 1.</p>
+                            </div>
+                        </div>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-fingerprint text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Secure Authentication</strong>
+                                    <span class="text-sm text-slate-500">Role-based login for Teachers & Parents.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-clipboard-check text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Smart Attendance</strong>
+                                    <span class="text-sm text-slate-500">Check-in/out with timestamps.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-bullhorn text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Broadcast Feed</strong>
+                                    <span class="text-sm text-slate-500">School-wide announcements.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-regular fa-comments text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Basic Chat</strong>
+                                    <span class="text-sm text-slate-500">1-to-1 Text messaging (No media).</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-newspaper text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Activity Summary</strong>
+                                    <span class="text-sm text-slate-500">Daily feed with text & single photo.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-ruler-vertical text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Basic Dev Tracking</strong>
+                                    <span class="text-sm text-slate-500">Manual Height/Weight Data Entry.</span>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     
+                    <!-- Phase 2 Content -->
                     <div id="phase2-roadmap" class="roadmap-tab-content hidden">
-                        <ul class="list-disc list-inside space-y-3 text-gray-700">
-                            <li><strong class="text-gray-900">Chat (Advanced):</strong> Group chats, read receipts, and support for file/video attachments.</li>
-                            <li><strong class="text-gray-900">Activity Summary (Advanced):</strong> Tagged photo albums, search/filter by date, and ability to download media.</li>
-                            <li><strong class="text-gray-900">Vaccination Book:</strong> Digital tracking of vaccination records with reminder notifications for upcoming shots.</li>
-                            <li><strong class="text-gray-900">Child Development (Advanced):</strong>
-                                <ul class="list-disc list-inside ml-6 mt-1 space-y-1">
-                                    <li>Visual growth charts comparing height/weight against expected measures (WHO standards).</li>
-                                    <li>Developmental milestone tracking (e.g., motor, social) with input from both teachers and parents.</li>
-                                </ul>
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+                            <i class="fa-solid fa-wand-magic-sparkles text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-blue-900 text-sm">Engagement & Health Suite</h4>
+                                <p class="text-xs text-blue-800">Advanced features to match market leaders like "Tentang Anak".</p>
+                            </div>
+                        </div>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-images text-blue-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Rich Media Chat</strong>
+                                    <span class="text-sm text-slate-500">File attachments, photos, group logic.</span>
+                                </div>
                             </li>
-                            <li><strong class="text-gray-900">Advanced Admin Portal:</strong> School-wide analytics and reporting dashboards.</li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-syringe text-blue-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Vaccination Book</strong>
+                                    <span class="text-sm text-slate-500">Digital records & due-date reminders.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-chart-area text-blue-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Growth Analytics</strong>
+                                    <span class="text-sm text-slate-500">WHO standard visualization graphs.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
+                                <i class="fa-solid fa-photo-film text-blue-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-800">Smart Gallery</strong>
+                                    <span class="text-sm text-slate-500">Bulk upload & tagged albums.</span>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div id="timeline-content" class="main-tab-content space-y-6 hidden">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Interactive Project Timeline</h2>
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        This Gantt chart visualizes the complete project schedule from November 2025 to the launch in August 2026. This aggressive, 9-month timeline is built around the MVP strategy to ensure all critical path items are completed.
-                    </p>
+            <!-- TIMELINE TAB -->
+            <div id="timeline-content" class="hidden fade-in space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6">1-Year Execution Schedule</h2>
                     <div class="chart-container">
                         <canvas id="ganttChart"></canvas>
                     </div>
+                    <div class="mt-6 flex justify-center gap-6 text-sm text-slate-500">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-orange-500"></span> Design
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-blue-500"></span> Development
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500"></span> Launch/QA
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div id="risks-content" class="main-tab-content space-y-6 hidden">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Key Risks & Mitigation Plan</h2>
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Proactive risk management is essential for a project with this timeline and high-quality expectations. Here are the top identified risks and our mitigation strategies.
-                    </p>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-100">
+            <!-- COST TAB -->
+            <div id="cost-content" class="hidden fade-in space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="text-center mb-10">
+                        <h2 class="font-heading text-3xl font-bold text-slate-800">Flexible Budget Options</h2>
+                        <p class="text-slate-600 mt-2">Two viable paths to launch, optimized for the Indonesian market &lt; 200M IDR.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 max-w-5xl mx-auto">
+                        
+                        <!-- Option A: Economy -->
+                        <div class="package-card bg-white border border-slate-200 rounded-2xl p-6 relative overflow-hidden group hover:border-slate-400 hover:shadow-xl transition-all">
+                            <div class="absolute top-0 right-0 bg-slate-100 px-4 py-1 rounded-bl-xl text-xs font-bold text-slate-500 tracking-wider">ECONOMY</div>
+                            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-leaf text-slate-400"></i> Option A: Essential
+                            </h3>
+                            <div class="mt-6 mb-6">
+                                <span class="text-4xl font-heading font-bold text-slate-800">145<span class="text-lg text-slate-500 font-normal">jt IDR</span></span>
+                                <span class="text-xs text-slate-400 block mt-1">Total Fixed Cost</span>
+                            </div>
+                            <ul class="text-sm text-slate-600 space-y-4 mb-8">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+                                    <span><strong>Design:</strong> Standard UI Components. Faster, clean, but less unique.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+                                    <span><strong>Team:</strong> 1 Mid-Level + 1 Junior Dev.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-triangle-exclamation text-yellow-500 mt-0.5"></i>
+                                    <span><strong>Trade-off:</strong> Generic look & feel.</span>
+                                </li>
+                            </ul>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-slate-400 h-full w-[72%]"></div>
+                            </div>
+                            <p class="text-xs text-right mt-2 text-slate-400">72% of budget cap</p>
+                        </div>
+
+                        <!-- Option B: Recommended -->
+                        <div class="package-card bg-white border-2 border-brand-500 rounded-2xl p-6 relative overflow-hidden shadow-md transform hover:-translate-y-1 transition-all">
+                            <div class="absolute top-0 center w-full text-center bg-brand-500 py-1 text-xs font-bold text-white tracking-widest uppercase">Recommended</div>
+                            <h3 class="text-xl font-bold text-brand-900 mt-4 flex items-center gap-2">
+                                <i class="fa-solid fa-crown text-brand-500"></i> Option B: Standard
+                            </h3>
+                            <div class="mt-6 mb-6">
+                                <span class="text-4xl font-heading font-bold text-brand-600">185<span class="text-lg text-brand-400 font-normal">jt IDR</span></span>
+                                <span class="text-xs text-slate-400 block mt-1">Total Fixed Cost</span>
+                            </div>
+                            <ul class="text-sm text-slate-600 space-y-4 mb-8">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-brand-500 mt-0.5"></i>
+                                    <span><strong>Design:</strong> Custom Brand Identity & Bespoke UX.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-brand-500 mt-0.5"></i>
+                                    <span><strong>Team:</strong> 1 Senior Lead + 1 Mid Dev.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-brand-500 mt-0.5"></i>
+                                    <span><strong>Advantage:</strong> Scalable code & "Wow" factor.</span>
+                                </li>
+                            </ul>
+                            <div class="w-full bg-orange-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-brand-500 h-full w-[92%]"></div>
+                            </div>
+                            <p class="text-xs text-right mt-2 text-brand-600">92% of budget cap</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-scale-balanced"></i> Cost Breakdown Comparison
+                        </h3>
+                        <div class="cost-chart-container h-[300px]">
+                            <canvas id="comparisonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RISKS TAB -->
+            <div id="risks-content" class="hidden fade-in space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6">Risk Matrix & Mitigation</h2>
+                    <div class="overflow-hidden rounded-xl border border-slate-200">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Severity</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mitigation Strategy</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Risk Scenario</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Severity</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Mitigation Strategy</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="bg-white divide-y divide-slate-200">
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Scope Creep</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-red-100 text-red-800 font-medium">High</span></td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Strict adherence to the signed-off MVP roadmap. All new feature requests will be acknowledged and added to the "Phase 2" backlog for prioritization post-launch.</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-ban text-red-400"></i>
+                                            <span class="font-medium text-slate-900">Scope Creep</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">HIGH</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">Strict adherence to MVP for Aug launch. New requests moved to Post-Launch list.</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Aggressive 9-Month Timeline</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-red-100 text-red-800 font-medium">High</span></td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Adoption of Agile (Scrum) with 2-week sprints for rapid iteration. The timeline includes a 4-week buffer for App Store submission and final testing.</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-palette text-yellow-400"></i>
+                                            <span class="font-medium text-slate-900">"Generic UI" (Option A)</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">MEDIUM</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">If budget forces Option A, use high-quality libraries (e.g., UI Kitten) to maintain professional consistency.</td>
                                 </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Subjective UI/UX Goal</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 font-medium">Medium</span></td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">The 7-week dedicated UI/UX phase will produce high-fidelity, *clickable prototypes* (e.g., in Figma) for client review and approval *before* any development begins.</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Chat & Dev Tracking Complexity</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 font-medium">Medium</span></td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Mitigated by the MVP strategy. We will implement simplified, stable versions first (1-to-1 chat, manual H/W entry) and defer complex logic (group chat, auto-charting) to Phase 2.</td>
+                                 <tr>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-clock text-red-400"></i>
+                                            <span class="font-medium text-slate-900">Timeline Compression</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">HIGH</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">Use pre-built backend (Firebase) to save 30% dev time.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -210,103 +552,103 @@
         </main>
     </div>
 
-    <script>
-        const mainTabs = {
-            'overview': document.getElementById('overview-content'),
-            'strategy': document.getElementById('strategy-content'),
-            'roadmap': document.getElementById('roadmap-content'),
-            'timeline': document.getElementById('timeline-content'),
-            'risks': document.getElementById('risks-content'),
-        };
-        const mainTabButtons = document.querySelectorAll('#main-tabs .tab-button');
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <i class="fa-solid fa-shapes text-3xl text-brand-500"></i>
+            </div>
+            <p class="text-sm">Prepared for Little Scholars School</p>
+            <p class="text-xs mt-2 opacity-50">&copy; 2025 Project Proposal</p>
+        </div>
+    </footer>
 
-        function showMainTab(tabName) {
-            Object.values(mainTabs).forEach(tab => tab.classList.add('hidden'));
-            mainTabs[tabName].classList.remove('hidden');
+    <script>
+        // Tab Logic
+        const mainTabs = ['overview', 'strategy', 'roadmap', 'timeline', 'cost', 'risks'];
+        
+        function showMainTab(btn, tabId) {
+            // Hide all contents
+            mainTabs.forEach(id => {
+                const el = document.getElementById(id + '-content');
+                if(el) el.classList.add('hidden');
+            });
+            // Show selected
+            const content = document.getElementById(tabId + '-content');
+            if(content) content.classList.remove('hidden');
             
-            mainTabButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`#main-tabs .tab-button[onclick="showMainTab('${tabName}')"]`).classList.add('active');
+            // Update buttons
+            const buttons = document.querySelectorAll('#main-tabs .tab-btn');
+            buttons.forEach(b => {
+                b.classList.remove('active', 'text-brand-600', 'bg-orange-50');
+                b.classList.add('text-slate-500');
+            });
+            
+            // Activate clicked button
+            if (btn) {
+                btn.classList.remove('text-slate-500');
+                btn.classList.add('active', 'text-brand-600');
+            }
         }
 
-        const roadmapTabs = {
-            'mvp': document.getElementById('mvp-roadmap'),
-            'phase2': document.getElementById('phase2-roadmap'),
-        };
-        const roadmapTabButtons = document.querySelectorAll('#roadmap-tabs .tab-button');
-
-        function showRoadmapTab(tabName) {
-            Object.values(roadmapTabs).forEach(tab => tab.classList.add('hidden'));
-            roadmapTabs[tabName].classList.remove('hidden');
+        function showRoadmapTab(btn, tabId) {
+            // Hide roadmap contents
+            document.getElementById('mvp-roadmap').classList.add('hidden');
+            document.getElementById('phase2-roadmap').classList.add('hidden');
+            // Show selected
+            document.getElementById(tabId + '-roadmap').classList.remove('hidden');
             
-            roadmapTabButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`#roadmap-tabs .tab-button[onclick="showRoadmapTab('${tabName}')"]`).classList.add('active');
+            // Reset buttons styling
+            const container = document.getElementById('roadmap-tabs');
+            const buttons = container.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.className = "px-6 py-2 rounded-md font-semibold text-sm transition-all text-slate-500 hover:text-slate-700";
+            });
+            
+            // Style active
+            btn.className = "px-6 py-2 rounded-md font-semibold text-sm transition-all shadow bg-white text-brand-600";
         }
 
         window.onload = function() {
-            const ctx = document.getElementById('ganttChart').getContext('2d');
-            
-            const data = {
-                labels: [
-                    'Phase 1: Discovery & Strategy',
-                    'Phase 2: UI/UX Design',
-                    'Phase 3: Backend & Setup',
-                    'Phase 4: Development (Sprints)',
-                    'Phase 5: QA & UAT',
-                    'Phase 6: Deployment & Buffer',
-                ],
-                datasets: [
-                    {
-                        label: 'Project Phases',
+            // --- GANTT CHART ---
+            const ctxGantt = document.getElementById('ganttChart').getContext('2d');
+            new Chart(ctxGantt, {
+                type: 'bar',
+                data: {
+                    labels: ['Design (UI/UX)', 'P1: Dev Sprint', 'P1: QA/Launch', 'P2: Dev Sprint', 'P2: QA/Close'],
+                    datasets: [{
+                        label: 'Timeline',
                         data: [
-                            [new Date('2025-11-25'), new Date('2025-12-20')], 
-                            [new Date('2025-12-23'), new Date('2026-02-07')],
-                            [new Date('2026-01-13'), new Date('2026-02-14')],
-                            [new Date('2026-02-09'), new Date('2026-06-13')],
-                            [new Date('2026-06-15'), new Date('2026-07-25')],
-                            [new Date('2026-07-27'), new Date('2026-08-22')],
+                            [new Date('2025-12-01'), new Date('2026-01-31')], 
+                            [new Date('2026-02-01'), new Date('2026-06-30')],
+                            [new Date('2026-07-01'), new Date('2026-08-31')], 
+                            [new Date('2026-09-01'), new Date('2026-10-31')], 
+                            [new Date('2026-11-01'), new Date('2026-11-30')]
                         ],
                         backgroundColor: [
-                            'rgba(234, 88, 12, 0.7)',
-                            'rgba(2, 132, 199, 0.7)',
-                            'rgba(107, 114, 128, 0.7)',
-                            'rgba(234, 88, 12, 0.7)',
-                            'rgba(2, 132, 199, 0.7)',
-                            'rgba(16, 185, 129, 0.7)',
+                            'rgba(249, 115, 22, 0.8)', // Design Orange
+                            'rgba(59, 130, 246, 0.8)', // P1 Blue
+                            'rgba(16, 185, 129, 0.8)', // Launch Green
+                            'rgba(96, 165, 250, 0.6)', // P2 Light Blue
+                            'rgba(16, 185, 129, 0.6)'  // Close Light Green
                         ],
-                        borderColor: [
-                            'rgba(234, 88, 12, 1)',
-                            'rgba(2, 132, 199, 1)',
-                            'rgba(107, 114, 128, 1)',
-                            'rgba(234, 88, 12, 1)',
-                            'rgba(2, 132, 199, 1)',
-                            'rgba(16, 185, 129, 1)',
-                        ],
-                        borderWidth: 1,
-                        barPercentage: 0.6,
-                    }
-                ]
-            };
-
-            const config = {
-                type: 'bar',
-                data: data,
+                        borderRadius: 4,
+                        barPercentage: 0.5
+                    }]
+                },
                 options: {
                     indexAxis: 'y',
-                    maintainAspectRatio: false,
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    const item = context.raw;
-                                    // Use native JS to avoid library dependency issues
-                                    const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
-                                    const from = new Date(item[0]).toLocaleDateString('en-US', dateOptions);
-                                    const to = new Date(item[1]).toLocaleDateString('en-US', dateOptions);
-                                    return `${context.label}: ${from} - ${to}`;
+                                    const d = context.raw;
+                                    return context.label + ": " + 
+                                           new Date(d[0]).toLocaleDateString('en-US', {month:'short'}) + " - " + 
+                                           new Date(d[1]).toLocaleDateString('en-US', {month:'short', year:'2-digit'});
                                 }
                             }
                         }
@@ -314,32 +656,57 @@
                     scales: {
                         x: {
                             type: 'time',
-                            time: {
-                                unit: 'month',
-                                displayFormats: {
-                                    month: 'MMM yyyy'
-                                }
-                            },
-                            min: '2025-11-21',
-                            max: '2026-08-31',
-                            title: {
-                                display: true,
-                                text: 'Date'
-                            },
-                            grid: {
-                                display: true
-                            }
+                            time: { unit: 'month' },
+                            min: '2025-11-15',
+                            max: '2026-12-15',
+                            grid: { color: '#f1f5f9' }
                         },
                         y: {
-                            grid: {
-                                display: false
-                            }
+                            grid: { display: false }
                         }
                     }
                 }
-            };
+            });
 
-            const ganttChart = new Chart(ctx, config);
+            // --- COST COMPARISON CHART ---
+            const ctxComp = document.getElementById('comparisonChart').getContext('2d');
+            new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: ['UI/UX Design', 'Development (P1+P2)', 'Project Mgmt & QA'],
+                    datasets: [
+                        {
+                            label: 'Option A: Essential (145M)',
+                            data: [15, 105, 25], 
+                            backgroundColor: '#94a3b8',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Option B: Standard (185M)',
+                            data: [25, 130, 30], 
+                            backgroundColor: '#ea580c', 
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { usePointStyle: true } },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            title: { display: true, text: 'Million IDR' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
         };
     </script>
 </body>
