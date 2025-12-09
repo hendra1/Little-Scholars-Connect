@@ -44,7 +44,7 @@
             background-color: #f8fafc;
         }
         
-        /* Hero Section Styling - Updated with reliable image */
+        /* Hero Section Styling */
         .hero-bg {
             background-image: linear-gradient(to right, rgba(255, 247, 237, 0.95), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
@@ -153,12 +153,21 @@
                         </div>
                     </div>
                     <div class="bg-white/90 backdrop-blur rounded-xl p-4 shadow-sm border border-orange-100 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                            <i class="fa-solid fa-wallet text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold uppercase">Budget Cap</p>
+                            <p class="font-bold text-slate-800">&lt; 200M IDR</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur rounded-xl p-4 shadow-sm border border-orange-100 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
                             <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
                         </div>
                         <div>
                             <p class="text-xs text-slate-500 font-semibold uppercase">Powered By</p>
-                            <p class="font-bold text-slate-800">Gemini AI</p>
+                            <p class="font-bold text-slate-800">Gen AI</p>
                         </div>
                     </div>
                 </div>
@@ -198,56 +207,83 @@
 
             <!-- OVERVIEW TAB -->
             <div id="overview-content" class="fade-in space-y-6">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Left Column: Text -->
-                    <div class="lg:col-span-2 space-y-6">
-                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                            <h2 class="font-heading text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                                <i class="fa-solid fa-quote-left text-orange-500"></i> Project Vision
-                            </h2>
-                            <p class="text-lg text-slate-600 leading-relaxed">
-                                We are developing a digital ecosystem for parents and educators of children aged <strong>6 months to 3 years</strong>. 
-                                By integrating <span class="text-purple-600 font-bold">✨ Gemini AI</span>, we will move beyond simple tracking to provide <em>intelligent, personalized insights</em> for every child's development journey.
-                            </p>
-                            <div class="mt-6 flex flex-wrap gap-3">
-                                <span class="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-600">React Native</span>
-                                <span class="px-3 py-1 bg-purple-100 rounded-full text-sm font-medium text-purple-700 border border-purple-200"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Gemini API</span>
-                                <span class="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-600">Indonesian Team</span>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg hover-card">
-                                <div class="text-orange-100 text-sm font-medium uppercase tracking-wider mb-1">Target Launch</div>
-                                <div class="text-3xl font-heading font-bold">Aug '26</div>
-                                <div class="mt-2 text-xs text-orange-100 bg-white/20 inline-block px-2 py-0.5 rounded">School Opening</div>
-                            </div>
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover-card group">
-                                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-users-gear text-xl"></i>
-                                </div>
-                                <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Strategy</div>
-                                <div class="text-xl font-heading font-bold text-slate-800">2-Phase MVP</div>
-                            </div>
-                             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover-card group">
-                                <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-money-bill-wave text-xl"></i>
-                                </div>
-                                <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Budget</div>
-                                <div class="text-xl font-heading font-bold text-slate-800">Tiered Options</div>
-                            </div>
+                <!-- Top Row: Text Left, Image Right -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                    
+                    <!-- Left: Vision Text -->
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center h-full">
+                        <h2 class="font-heading text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-quote-left text-orange-500"></i> Project Vision
+                        </h2>
+                        <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                            Unlike existing rigid tools, this application prioritizes <strong>warmth, ease of use, and emotional connection</strong> alongside operational efficiency.
+                        </p>
+                        <p class="text-lg text-slate-600 leading-relaxed">
+                            We are developing a digital ecosystem for children aged <strong>6 months to 3 years</strong>. By integrating <span class="text-purple-600 font-bold">✨ Gen AI</span>, we provide intelligent, personalized insights for every child's development journey.
+                        </p>
+                        <div class="mt-6 flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-600">React Native</span>
+                            <span class="px-3 py-1 bg-purple-100 rounded-full text-sm font-medium text-purple-700 border border-purple-200"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Gen AI</span>
+                            <span class="px-3 py-1 bg-slate-100 rounded-full text-sm font-medium text-slate-600">iOS & Android</span>
                         </div>
                     </div>
-                    
-                    <!-- Right Column: Image (UPDATED) -->
-                    <div class="lg:col-span-1">
-                        <div class="bg-slate-800 rounded-2xl shadow-lg overflow-hidden h-full min-h-[300px] relative group">
-                            <!-- Changed Image to be more 'Warm' and 'Parent/Child' focused -->
-                            <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=800&q=80" alt="Parent smiling while using the app" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
-                            <div class="absolute bottom-0 left-0 p-6">
-                                <h3 class="text-white font-bold text-xl">Heart-Centered UX</h3>
-                                <p class="text-slate-300 text-sm mt-1">Balancing emotional connection with 1-tap efficiency.</p>
+
+                    <!-- Right: The Uploaded Image -->
+                    <div class="rounded-2xl shadow-lg overflow-hidden h-full min-h-[300px] border border-slate-200">
+                        <img src="Gemini_Generated_Image_vctid3vctid3vcti.jpg" alt="App Dashboard Preview" class="w-full h-full object-cover object-[center_20%]">
+                    </div>
+                </div>
+
+                <!-- Middle Row: Key Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="md:col-span-2 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg hover-card flex flex-col justify-center">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="bg-white/20 p-2 rounded-full">
+                                <i class="fa-solid fa-rocket text-xl"></i>
+                            </div>
+                            <div class="text-orange-100 text-sm font-medium uppercase tracking-wider">Target Launch</div>
+                        </div>
+                        <div class="text-4xl font-heading font-bold mt-1">August 2026</div>
+                        <div class="mt-3 text-sm text-orange-100 bg-white/20 inline-block px-3 py-1 rounded-full w-fit">
+                            <i class="fa-solid fa-school mr-1"></i> Ready for School Opening
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover-card group flex flex-col justify-center">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-users-gear text-xl"></i>
+                        </div>
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Strategy</div>
+                        <div class="text-xl font-heading font-bold text-slate-800">2-Phase MVP</div>
+                    </div>
+                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover-card group flex flex-col justify-center">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-money-bill-wave text-xl"></i>
+                        </div>
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wider">Budget</div>
+                        <div class="text-xl font-heading font-bold text-slate-800">~250jt IDR</div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row: Primary Roles -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="font-heading text-lg font-bold text-slate-800 mb-4">Primary Roles</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition-colors">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-900 text-lg">School Admins / Teachers</div>
+                                <div class="text-sm text-slate-500">Daily Ops, Reporting & Communication</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-orange-200 transition-colors">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-house-chimney-user"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-900 text-lg">Parents</div>
+                                <div class="text-sm text-slate-500">Monitoring, Connection & Updates</div>
                             </div>
                         </div>
                     </div>
@@ -259,13 +295,18 @@
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div class="flex items-start gap-4">
                         <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
-                            <i class="fa-solid fa-lightbulb text-2xl"></i>
+                            <i class="fa-solid fa-layer-group text-2xl"></i>
                         </div>
                         <div>
-                            <h2 class="font-heading text-2xl font-bold text-slate-800">Lean Strategy: "Design First, Code Second"</h2>
-                            <p class="text-slate-600 mt-2">
-                                To fit the budget while hitting the "Better UI/UX" goal, we shift from a monthly retainer to a <span class="font-bold text-slate-900">Fixed Milestone Model</span>. We utilize BaaS (Firebase/Supabase) to minimize backend costs, allocating those savings to frontend polish.
+                            <h2 class="font-heading text-2xl font-bold text-slate-800">A Phased MVP Strategy</h2>
+                            <p class="text-slate-600 mt-2 leading-relaxed">
+                                Given the firm 9-month deadline and the request for a high-quality, "better UI/UX" application, a standard development approach is high-risk. A rushed project inevitably leads to poor user experience, bugs, and missed deadlines.
                             </p>
+                            <div class="mt-4 border-l-4 border-orange-500 bg-orange-50/50 p-4 rounded-r-lg">
+                                <p class="text-slate-700 leading-relaxed">
+                                    Therefore, our core strategy is to launch with a focused <span class="font-bold text-slate-900">Minimum Viable Product (MVP)</span>. This strategy ensures we deliver the most critical features flawlessly for your school's opening. It prioritizes stability, usability, and the core-value propositions. More complex, secondary features will be developed and released in "Phase 2" immediately following the initial launch.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -285,26 +326,22 @@
                         <p class="text-sm text-slate-500 mb-4">Launch: Aug '26</p>
                         <p class="text-slate-600 text-sm">Strict focus on operations: Attendance, Broadcasts, and Reports. Complex health logic is excluded to ensure stability.</p>
                     </div>
-                    
-                    <!-- Gemini Integration Card -->
-                    <div class="bg-gradient-to-br from-purple-50 to-white p-6 rounded-2xl shadow-sm border border-l-4 border-l-purple-500 border-purple-100 hover-card relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-2 opacity-10 text-purple-500">
-                            <i class="fa-solid fa-robot text-6xl"></i>
-                        </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-l-4 border-l-blue-500 border-slate-100 hover-card">
                         <h3 class="font-bold text-lg text-slate-800 mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles text-purple-500"></i> 3. AI Differentiation
+                            <i class="fa-solid fa-chart-line text-blue-500"></i> 3. Phase 2 Expansion
                         </h3>
-                        <p class="text-sm text-slate-500 mb-4">Phase 2: Sep '26</p>
-                        <p class="text-slate-600 text-sm">We use <strong>Gemini API</strong> to create "Magic Summaries" for teachers and "Growth Insights" for parents, differentiating us from competitors.</p>
+                        <p class="text-sm text-slate-500 mb-4">Finish: Nov '26</p>
+                        <p class="text-slate-600 text-sm">Post-launch, we build the "Vaccination Book" and "Growth Charts" features without deadline pressure, ensuring complex logic is handled correctly.</p>
                     </div>
                 </div>
                 
-                <div class="mt-6 bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex gap-4 items-start">
-                    <i class="fa-solid fa-exclamation-triangle text-yellow-500 mt-1"></i>
+                <!-- Gen AI Integration Box -->
+                <div class="mt-6 bg-purple-50 border border-purple-200 p-4 rounded-xl flex gap-4 items-start">
+                    <i class="fa-solid fa-wand-magic-sparkles text-purple-500 mt-1 text-xl"></i>
                     <div>
-                        <h4 class="font-bold text-yellow-900 text-sm">Why P2 Design is Critical</h4>
-                        <p class="text-xs text-yellow-800 mt-1">
-                            Phase 2 introduces complex interfaces like <span class="font-bold">Growth Charts</span> and <span class="font-bold">AI Chat Interactions</span>. These cannot be "improvised" by developers. A dedicated design sprint in August is required to define these flows before P2 development starts in September.
+                        <h4 class="font-bold text-purple-900 text-lg">✨ AI Differentiation (Gen AI)</h4>
+                        <p class="text-sm text-purple-800 mt-2 leading-relaxed">
+                            We use <strong>Gemini API</strong> to create "Magic Summaries" for teachers (converting keywords into full updates) and "Growth Insights" for parents (answering development questions), creating a unique selling point against competitors.
                         </p>
                     </div>
                 </div>
@@ -330,51 +367,52 @@
                         <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6 flex items-start gap-3">
                             <i class="fa-solid fa-info-circle text-orange-500 mt-1"></i>
                             <div>
-                                <h4 class="font-bold text-orange-900 text-sm">Operational Essentials</h4>
-                                <p class="text-xs text-orange-800">Must-have features for the school to function on Day 1.</p>
+                                <h4 class="font-bold text-orange-900 text-sm">Phase 1: Operational Essentials (Aug 2026)</h4>
+                                <p class="text-xs text-orange-800">The "Must-Have" features to ensure the school runs smoothly from Day 1.</p>
                             </div>
                         </div>
                         <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
                                 <i class="fa-solid fa-fingerprint text-slate-400 mt-1"></i>
                                 <div>
-                                    <strong class="block text-slate-800">Secure Authentication</strong>
-                                    <span class="text-sm text-slate-500">Role-based login for Teachers & Parents.</span>
+                                    <strong class="block text-slate-800">Secure Family Portal</strong>
+                                    <span class="text-sm text-slate-500">Safe, role-based access ensuring parent data privacy and ease of login for busy teachers.</span>
                                 </div>
                             </li>
                             <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
                                 <i class="fa-solid fa-clipboard-check text-slate-400 mt-1"></i>
                                 <div>
-                                    <strong class="block text-slate-800">Smart Attendance</strong>
-                                    <span class="text-sm text-slate-500">Check-in/out with timestamps.</span>
+                                    <strong class="block text-slate-800">One-Tap Attendance</strong>
+                                    <span class="text-sm text-slate-500">Effortless check-in/out system with digital timestamps, giving parents peace of mind about their child's arrival.</span>
                                 </div>
                             </li>
                             <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
                                 <i class="fa-solid fa-bullhorn text-slate-400 mt-1"></i>
                                 <div>
-                                    <strong class="block text-slate-800">Broadcast Feed</strong>
-                                    <span class="text-sm text-slate-500">School-wide announcements.</span>
+                                    <strong class="block text-slate-800">Digital Bulletin Board</strong>
+                                    <span class="text-sm text-slate-500">A dedicated feed for newsletters and announcements, keeping the school community aligned without email clutter.</span>
                                 </div>
                             </li>
                             <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
                                 <i class="fa-regular fa-comments text-slate-400 mt-1"></i>
                                 <div>
-                                    <strong class="block text-slate-800">Basic Chat</strong>
-                                    <span class="text-sm text-slate-500">1-to-1 Text messaging (No media).</span>
+                                    <strong class="block text-slate-800">Direct Parent-Teacher Line</strong>
+                                    <span class="text-sm text-slate-500">Focused 1-to-1 text messaging for essential updates, keeping communication professional and organized.</span>
                                 </div>
                             </li>
                             <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
                                 <i class="fa-solid fa-newspaper text-slate-400 mt-1"></i>
                                 <div>
-                                    <strong class="block text-slate-800">Activity Summary</strong>
-                                    <span class="text-sm text-slate-500">Daily feed with text & single photo.</span>
+                                    <strong class="block text-slate-800">Daily Moments Feed</strong>
+                                    <span class="text-sm text-slate-500">A chronological timeline of the child's day (meals, naps, play) with a daily photo highlight to connect parents to the classroom.</span>
                                 </div>
                             </li>
+                            <!-- MODIFIED FEATURE: Child Development (Basic) -->
                             <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
                                 <i class="fa-solid fa-ruler-vertical text-slate-400 mt-1"></i>
                                 <div>
-                                    <strong class="block text-slate-800">Basic Dev Tracking</strong>
-                                    <span class="text-sm text-slate-500">Manual Height/Weight Data Entry.</span>
+                                    <strong class="block text-slate-800">Child Development (Basic)</strong>
+                                    <span class="text-sm text-slate-500">Manual entry for Height & Weight. A simple list view of historical data for basic tracking.</span>
                                 </div>
                             </li>
                         </ul>
@@ -385,17 +423,30 @@
                         <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 mb-6 flex items-start gap-3">
                             <i class="fa-solid fa-wand-magic-sparkles text-purple-500 mt-1"></i>
                             <div>
-                                <h4 class="font-bold text-purple-900 text-sm">Gemini AI & Health Suite</h4>
-                                <p class="text-xs text-purple-800">Advanced features powered by Large Language Models to assist teachers and parents.</p>
+                                <h4 class="font-bold text-purple-900 text-sm">Phase 2: Gen AI & Health Suite (Nov 2026)</h4>
+                                <p class="text-xs text-purple-800">Advanced "Nice-to-Have" features powered by AI to differentiate the school.</p>
                             </div>
                         </div>
                         <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            
+                            <!-- MODIFIED FEATURE: Child Development (Advanced) -->
+                            <li class="flex items-start gap-3 p-4 border border-blue-100 bg-blue-50/30 rounded-lg md:col-span-2">
+                                <div class="mt-1"><i class="fa-solid fa-chart-line text-blue-500"></i></div>
+                                <div>
+                                    <strong class="block text-slate-800">✨ Child Development (Advanced)</strong>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 mt-1">
+                                        <li>Visual growth charts comparing height/weight against expected measures (WHO standards).</li>
+                                        <li>Developmental milestone tracking (e.g., motor, social) with collaborative input from both teachers and parents.</li>
+                                    </ul>
+                                </div>
+                            </li>
+
                             <!-- AI Feature 1 -->
                             <li class="flex items-start gap-3 p-4 border border-purple-100 bg-purple-50/30 rounded-lg">
                                 <div class="mt-1"><i class="fa-solid fa-pen-nib text-purple-500"></i></div>
                                 <div>
                                     <strong class="block text-slate-800">✨ Magic Daily Summaries</strong>
-                                    <span class="text-sm text-slate-500">Teachers input keywords (e.g., "Nap, Rice, Happy"), Gemini generates a warm paragraph for parents.</span>
+                                    <span class="text-sm text-slate-500">Teachers enter quick keywords (e.g., "Nap, Rice, Happy"), Gen AI instantly drafts a warm, complete report for parents.</span>
                                 </div>
                             </li>
                             <!-- AI Feature 2 -->
@@ -403,29 +454,15 @@
                                 <div class="mt-1"><i class="fa-solid fa-comments text-purple-500"></i></div>
                                 <div>
                                     <strong class="block text-slate-800">✨ Growth Companion</strong>
-                                    <span class="text-sm text-slate-500">Parent AI Assistant: "Is my 2yo's sleep normal?" answers based on WHO data & child's logs.</span>
+                                    <span class="text-sm text-slate-500">Parent AI Assistant: "Is my child's sleep normal?" answers based on WHO data & child's logs.</span>
                                 </div>
                             </li>
-                             <!-- AI Feature 3 -->
-                             <li class="flex items-start gap-3 p-4 border border-purple-100 bg-purple-50/30 rounded-lg">
-                                <div class="mt-1"><i class="fa-solid fa-utensils text-purple-500"></i></div>
-                                <div>
-                                    <strong class="block text-slate-800">✨ Smart Meal Planner</strong>
-                                    <span class="text-sm text-slate-500">Suggests dinner recipes based on what the child ate at school for lunch to ensure balanced nutrition.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
-                                <i class="fa-solid fa-chart-area text-blue-400 mt-1"></i>
-                                <div>
-                                    <strong class="block text-slate-800">Growth Analytics</strong>
-                                    <span class="text-sm text-slate-500">WHO standard visualization graphs.</span>
-                                </div>
-                            </li>
+                            
                              <li class="flex items-start gap-3 p-4 border border-slate-100 rounded-lg">
                                 <i class="fa-solid fa-syringe text-blue-400 mt-1"></i>
                                 <div>
-                                    <strong class="block text-slate-800">Vaccination Book</strong>
-                                    <span class="text-sm text-slate-500">Digital records & due-date reminders.</span>
+                                    <strong class="block text-slate-800">Vaccination Tracker</strong>
+                                    <span class="text-sm text-slate-500">Digital immunization record with automated reminders for upcoming shots, ensuring no health milestone is missed.</span>
                                 </div>
                             </li>
                         </ul>
@@ -458,79 +495,222 @@
             <div id="cost-content" class="hidden fade-in space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div class="text-center mb-10">
-                        <h2 class="font-heading text-3xl font-bold text-slate-800">Flexible Budget Options</h2>
-                        <p class="text-slate-600 mt-2">Two viable paths to launch, optimized for the Indonesian market &lt; 200M IDR.</p>
+                        <h2 class="font-heading text-3xl font-bold text-slate-800">Development Cost & Engagement</h2>
+                        <p class="text-slate-600 mt-2">Flexible engagement models to suit your cash flow and risk preference.</p>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 max-w-5xl mx-auto">
+                    <!-- NEW: Two Engagement Scenarios (Grid) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 items-start">
                         
-                        <!-- Option A: Economy -->
-                        <div class="package-card bg-white border border-slate-200 rounded-2xl p-6 relative overflow-hidden group hover:border-slate-400 hover:shadow-xl transition-all">
-                            <div class="absolute top-0 right-0 bg-slate-100 px-4 py-1 rounded-bl-xl text-xs font-bold text-slate-500 tracking-wider">ECONOMY</div>
-                            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                <i class="fa-solid fa-leaf text-slate-400"></i> Option A: Essential
-                            </h3>
-                            <div class="mt-6 mb-6">
-                                <span class="text-4xl font-heading font-bold text-slate-800">145<span class="text-lg text-slate-500 font-normal">jt IDR</span></span>
-                                <span class="text-xs text-slate-400 block mt-1">Total Fixed Cost</span>
+                        <!-- Scenario A: Detailed Turnkey -->
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-md hover:border-blue-300 transition-colors flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h4 class="text-xl font-heading font-bold text-slate-800">Option A: Fixed-Scope Turnkey</h4>
+                                    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-semibold uppercase tracking-wider">Locked Scope</span>
+                                </div>
+                                <div class="text-right">
+                                     <span class="block text-3xl font-bold text-slate-800">~250<span class="text-lg text-slate-500 font-normal">jt IDR</span></span>
+                                     <span class="text-xs text-rose-500 font-bold block mt-1">Variance: ± 20-30% *</span>
+                                </div>
                             </div>
-                            <ul class="text-sm text-slate-600 space-y-4 mb-8">
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
-                                    <span><strong>Design:</strong> Standard UI Components.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
-                                    <span><strong>Team:</strong> 1 Mid-Level + 1 Junior Dev.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
-                                    <span><strong>Features:</strong> Standard MVP + Phase 2.</span>
-                                </li>
-                            </ul>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-slate-400 h-full w-[72%]"></div>
+
+                            <p class="text-sm text-slate-600 mb-6">
+                                Full project commitment. Price, Timeline, and Features are <strong>locked</strong> based on high-level requirements. Best for strict budget compliance but less flexible.
+                            </p>
+                            
+                            <!-- Team Section -->
+                            <div class="mb-6">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase mb-3">Professional Team</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">Lead Full Stack</span>
+                                    <span class="bg-orange-50 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">Senior UI/UX</span>
+                                    <span class="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1 rounded-full">Mid RN Developer</span>
+                                    <span class="bg-green-50 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">QA Specialist</span>
+                                </div>
                             </div>
-                            <p class="text-xs text-right mt-2 text-slate-400">72% of budget cap</p>
+
+                            <!-- Feature Summary -->
+                            <div class="mb-6 flex-grow">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase mb-3">Feature Inclusions</h5>
+                                <ul class="text-sm text-slate-600 space-y-2">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-rocket text-blue-500 mt-1"></i>
+                                        <span>Phase 1: MVP Core (Attendance, Broadcast)</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-purple-500 mt-1"></i>
+                                        <span>Phase 2: Gen AI Suite & Health</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-paintbrush text-orange-500 mt-1"></i>
+                                        <span>Custom "Heart-Centered" UI/UX</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Budget Allocation Chart Area -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                <h5 class="text-xs font-bold text-slate-500 uppercase mb-2 text-center">Budget Allocation</h5>
+                                <div class="h-[150px] relative">
+                                    <canvas id="comparisonChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <p class="text-[10px] text-slate-400 mt-4 italic">* Variance depends on final requirements & prototyping outcomes.</p>
                         </div>
 
-                        <!-- Option B: Recommended -->
-                        <div class="package-card bg-white border-2 border-orange-500 rounded-2xl p-6 relative overflow-hidden shadow-md transform hover:-translate-y-1 transition-all">
-                            <div class="absolute top-0 center w-full text-center bg-orange-500 py-1 text-xs font-bold text-white tracking-widest uppercase">Recommended</div>
-                            <h3 class="text-xl font-bold text-orange-900 mt-4 flex items-center gap-2">
-                                <i class="fa-solid fa-crown text-orange-500"></i> Option B: Standard
-                            </h3>
-                            <div class="mt-6 mb-6">
-                                <span class="text-4xl font-heading font-bold text-orange-600">185<span class="text-lg text-orange-400 font-normal">jt IDR</span></span>
-                                <span class="text-xs text-slate-400 block mt-1">Total Fixed Cost</span>
+                        <!-- Scenario B: Phased -->
+                        <div class="bg-white border-2 border-orange-500 rounded-2xl p-6 shadow-lg flex flex-col relative overflow-hidden h-full">
+                            <!-- Removed the Recommended Ribbon -->
+                            
+                            <div class="mb-4">
+                                <h4 class="text-xl font-heading font-bold text-orange-600">Option B: Agile Prototype-First</h4>
+                                <span class="text-xs bg-orange-50 text-orange-600 px-2 py-1 rounded font-semibold uppercase tracking-wider">Flexible</span>
                             </div>
-                            <ul class="text-sm text-slate-600 space-y-4 mb-8">
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-orange-500 mt-0.5"></i>
-                                    <span><strong>Design:</strong> Custom Brand Identity.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-wand-magic-sparkles text-purple-500 mt-0.5 sparkle-icon"></i>
-                                    <span><strong>AI Integration:</strong> Basic Gemini API Features included.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-orange-500 mt-0.5"></i>
-                                    <span><strong>Wow Factor:</strong> Premium Micro-interactions, Fluid Navigation & Haptic Feedback.</span>
-                                </li>
-                            </ul>
-                            <div class="w-full bg-orange-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-orange-500 h-full w-[92%]"></div>
+
+                            <p class="text-sm text-slate-600 mb-6">
+                                Start with Design only. Validate the UX first. The development cost is an <strong>estimate</strong> that will be adjusted and finalized <strong>after</strong> the prototype is approved.
+                            </p>
+                            
+                            <div class="space-y-4 mb-6 flex-grow">
+                                <!-- Step 1 -->
+                                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600">1</div>
+                                        <div>
+                                            <div class="font-bold text-slate-800">Design & Prototype</div>
+                                            <div class="text-xs text-slate-500">Fixed Cost. Deliverable: Figma.</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right font-bold text-slate-800">~40jt</div>
+                                </div>
+                                
+                                <!-- Arrow -->
+                                <div class="flex justify-center text-slate-300"><i class="fa-solid fa-arrow-down"></i></div>
+
+                                <!-- Step 2 -->
+                                <div class="flex items-center justify-between p-4 bg-orange-50 rounded-xl border-2 border-orange-100 border-dashed">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-orange-200 flex items-center justify-center font-bold text-orange-700">2</div>
+                                        <div>
+                                            <div class="font-bold text-orange-800">Development Phase</div>
+                                            <div class="text-xs text-orange-600">Estimate. Adjusted based on Proto.</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right font-bold text-orange-800">~210jt</div>
+                                </div>
                             </div>
-                            <p class="text-xs text-right mt-2 text-orange-600">92% of budget cap</p>
+                            
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                <div class="flex gap-3">
+                                    <i class="fa-solid fa-circle-info text-blue-500 mt-1"></i>
+                                    <p class="text-xs text-blue-800 leading-relaxed">
+                                        <strong>Why choose this?</strong> You don't commit to the full 250jt until you see exactly what you are building. If the prototype simplifies features, the dev cost goes down.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-scale-balanced"></i> Cost Breakdown Comparison
-                        </h3>
-                        <div class="cost-chart-container h-[300px]">
-                            <canvas id="comparisonChart"></canvas>
+                    <!-- Operational Costs Section (Detailed Table) -->
+                    <div class="mb-12">
+                        <h3 class="font-heading text-xl font-bold text-slate-800 mb-6 border-l-4 border-rose-500 pl-3">2. Operational Cost Estimates (Opex - Year 1)</h3>
+                        <p class="text-sm text-slate-600 mb-4">Recurring costs paid directly to service providers (Apple, Google, Firebase, etc.).</p>
+                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                            <table class="min-w-full divide-y divide-slate-200 text-sm">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left font-bold text-slate-600 uppercase tracking-wider">Item</th>
+                                        <th class="px-6 py-3 text-left font-bold text-slate-600 uppercase tracking-wider">Frequency</th>
+                                        <th class="px-6 py-3 text-right font-bold text-slate-600 uppercase tracking-wider">Est. Cost (IDR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-800 font-medium">Apple Developer Program</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-500">Annual</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-slate-600">~1.600.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-800 font-medium">Google Play Console</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-500">One-time</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-slate-600">~400.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-800 font-medium">Cloud Server (Firebase/Supabase)</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-500">Monthly (Est. 12mo)</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-slate-600">3.000.000 - 6.000.000</td>
+                                    </tr>
+                                    <tr class="bg-purple-50/50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-800 font-medium flex items-center gap-2">
+                                            <i class="fa-solid fa-wand-magic-sparkles text-purple-500"></i> Gen AI Tokens (Gemini API)
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-slate-500">Usage Based (Est. 12mo)</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-slate-600">2.000.000 - 5.000.000</td>
+                                    </tr>
+                                    <tr class="bg-slate-100 font-bold">
+                                        <td class="px-6 py-4 text-slate-900">Total Operational Reserve</td>
+                                        <td class="px-6 py-4"></td>
+                                        <td class="px-6 py-4 text-right text-rose-600">~7jt - 13jt / Year</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- NEW Section 3: Annual Support & Man-Hours -->
+                    <div>
+                        <h3 class="font-heading text-xl font-bold text-slate-800 mb-6 border-l-4 border-blue-500 pl-3">3. Post-Launch Support & Growth</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            
+                            <!-- Monthly Maintenance -->
+                            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="bg-blue-50 p-2 rounded-lg text-blue-600"><i class="fa-solid fa-shield-heart"></i></div>
+                                        <h4 class="font-bold text-slate-800">Essential Maintenance</h4>
+                                    </div>
+                                    <p class="text-sm text-slate-500 mb-4">Server monitoring, bug fixes, and OS compatibility updates.</p>
+                                </div>
+                                <div class="text-xl font-bold text-slate-800 pt-4 border-t border-slate-100">~4.5jt <span class="text-sm font-normal text-slate-500">/ Month</span></div>
+                            </div>
+
+                            <!-- On-Demand Features -->
+                            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="bg-orange-50 p-2 rounded-lg text-orange-600"><i class="fa-solid fa-puzzle-piece"></i></div>
+                                        <h4 class="font-bold text-slate-800">On-Demand Features</h4>
+                                    </div>
+                                    <p class="text-sm text-slate-500 mb-4">
+                                        Pay-as-you-go. We provide an hourly estimate for any new request, you approve, we build.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-slate-100">
+                                    <span class="block text-xs text-slate-500 font-bold uppercase mb-1">Standard Rate</span>
+                                    <span class="text-xl font-bold text-slate-800">~230rb <span class="text-sm font-normal text-slate-500">/ Hour</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Annual Man-Hour Bank -->
+                            <div class="bg-slate-800 text-white rounded-xl p-6 shadow-lg relative overflow-hidden group flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4 relative z-10">
+                                        <div class="bg-white/20 p-2 rounded-lg text-white"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                                        <h4 class="font-bold">Annual Man-Hour Bank</h4>
+                                    </div>
+                                    <p class="text-sm text-slate-300 mb-4 relative z-10">
+                                        Bulk purchase hours for the year. Guaranteed availability for larger updates or continuous improvements.
+                                    </p>
+                                </div>
+                                <div class="relative z-10 pt-4 border-t border-slate-600">
+                                    <span class="block text-xs text-orange-400 font-bold uppercase mb-1">Package (300 Hours)</span>
+                                    <span class="text-2xl font-bold">~69jt <span class="text-sm font-normal text-slate-400">/ Year</span></span>
+                                    <p class="text-[10px] text-slate-400 mt-1 italic">Equivalent to ~230rb/hour.</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -563,12 +743,42 @@
                                 <tr>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
-                                            <i class="fa-solid fa-palette text-yellow-400"></i>
-                                            <span class="font-medium text-slate-900">"Generic UI" (Option A)</span>
+                                            <i class="fa-solid fa-money-bill-wave text-red-400"></i>
+                                            <span class="font-medium text-slate-900">Budget Variance (±30%)</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">HIGH</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">The 250M figure is an estimate. Mitigation: Strict prioritization during the "Discovery Phase" to keep requirements within the cap.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-server text-yellow-400"></i>
+                                            <span class="font-medium text-slate-900">Gen AI Opex Fluctuations</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">MEDIUM</span></td>
-                                    <td class="px-6 py-4 text-sm text-slate-600">If budget forces Option A, use high-quality libraries (e.g., UI Kitten) to maintain professional consistency.</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">AI token costs can vary based on usage. Mitigation: Implement quota limits per teacher/month and use caching.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-clock text-yellow-400"></i>
+                                            <span class="font-medium text-slate-900">Resource Bottleneck (Aug)</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">MEDIUM</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">P1 Launch overlaps with P2 Design. Mitigation: Dedicated Design team separate from Launch Support team.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-paintbrush text-yellow-400"></i>
+                                            <span class="font-medium text-slate-900">Subjective UI/UX Goal</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">MEDIUM</span></td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">Sign-off on Figma prototypes is mandatory *before* coding starts. Limit to 2 revisions per major screen.</td>
                                 </tr>
                                  <tr>
                                     <td class="px-6 py-4">
@@ -603,53 +813,16 @@
     <script>
         // Tab Logic
         const mainTabs = ['overview', 'strategy', 'roadmap', 'timeline', 'cost', 'risks'];
+        let ganttChart = null;
+        let budgetChart = null;
         
-        function showMainTab(btn, tabId) {
-            // Hide all contents
-            mainTabs.forEach(id => {
-                const el = document.getElementById(id + '-content');
-                if(el) el.classList.add('hidden');
-            });
-            // Show selected
-            const content = document.getElementById(tabId + '-content');
-            if(content) content.classList.remove('hidden');
-            
-            // Update buttons
-            const buttons = document.querySelectorAll('#main-tabs .tab-btn');
-            buttons.forEach(b => {
-                b.classList.remove('active', 'text-orange-600');
-                b.classList.add('text-slate-500');
-            });
-            
-            // Activate clicked button
-            if (btn) {
-                btn.classList.remove('text-slate-500');
-                btn.classList.add('active', 'text-orange-600');
-            }
-        }
+        function initGanttChart() {
+            const canvas = document.getElementById('ganttChart');
+            if (!canvas) return; // Prevent error if element missing
+            if (ganttChart) return; // Prevent re-init
 
-        function showRoadmapTab(btn, tabId) {
-            // Hide roadmap contents
-            document.getElementById('mvp-roadmap').classList.add('hidden');
-            document.getElementById('phase2-roadmap').classList.add('hidden');
-            // Show selected
-            document.getElementById(tabId + '-roadmap').classList.remove('hidden');
-            
-            // Reset buttons styling
-            const container = document.getElementById('roadmap-tabs');
-            const buttons = container.querySelectorAll('button');
-            buttons.forEach(b => {
-                b.className = "px-6 py-2 rounded-md font-semibold text-sm transition-all text-slate-500 hover:text-slate-700";
-            });
-            
-            // Style active
-            btn.className = "px-6 py-2 rounded-md font-semibold text-sm transition-all shadow bg-white text-orange-600";
-        }
-
-        window.onload = function() {
-            // --- GANTT CHART ---
-            const ctxGantt = document.getElementById('ganttChart').getContext('2d');
-            new Chart(ctxGantt, {
+            const ctx = canvas.getContext('2d');
+            ganttChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Design (P1 Core)', 'P1: Dev Sprint', 'P1: QA/Launch', 'P2: Design Update', 'P2: Dev Sprint', 'P2: QA/Close'],
@@ -706,47 +879,97 @@
                     }
                 }
             });
+        }
 
-            // --- COST COMPARISON CHART ---
-            const ctxComp = document.getElementById('comparisonChart').getContext('2d');
-            new Chart(ctxComp, {
-                type: 'bar',
+        function initBudgetChart() {
+            const canvas = document.getElementById('comparisonChart');
+            if (!canvas) return; // Prevent error if element missing
+            if (budgetChart) return; // Prevent re-init
+
+            const ctx = canvas.getContext('2d');
+            budgetChart = new Chart(ctx, {
+                type: 'doughnut',
                 data: {
-                    labels: ['UI/UX Design', 'Development (P1+P2)', 'Project Mgmt & QA'],
-                    datasets: [
-                        {
-                            label: 'Option A: Essential (145M)',
-                            data: [15, 105, 25], 
-                            backgroundColor: '#94a3b8',
-                            borderRadius: 4
-                        },
-                        {
-                            label: 'Option B: Standard (185M)',
-                            data: [25, 130, 30], 
-                            backgroundColor: '#ea580c', 
-                            borderRadius: 4
-                        }
-                    ]
+                    labels: ['Custom UI/UX Design', 'Development (P1+P2)', 'Project Mgmt & QA'],
+                    datasets: [{
+                        data: [45, 150, 55], // Total 250
+                        backgroundColor: [
+                            '#f97316', // Orange (Design)
+                            '#3b82f6', // Blue (Dev)
+                            '#10b981', // Green (Mgmt)
+                        ],
+                        hoverOffset: 4
+                    }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'top', labels: { usePointStyle: true } },
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: '#f1f5f9' },
-                            title: { display: true, text: 'Million IDR' }
-                        },
-                        x: {
-                            grid: { display: false }
+                        legend: { position: 'bottom', labels: { usePointStyle: true } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw + 'jt IDR';
+                                }
+                            }
                         }
                     }
                 }
             });
-        };
+        }
+
+        function showMainTab(btn, tabId) {
+            // Hide all contents
+            mainTabs.forEach(id => {
+                const el = document.getElementById(id + '-content');
+                if(el) el.classList.add('hidden');
+            });
+            // Show selected
+            const content = document.getElementById(tabId + '-content');
+            if(content) content.classList.remove('hidden');
+            
+            // Update buttons
+            const buttons = document.querySelectorAll('#main-tabs .tab-btn');
+            buttons.forEach(b => {
+                b.classList.remove('active', 'text-orange-600');
+                b.classList.add('text-slate-500');
+            });
+            
+            // Activate clicked button
+            if (btn) {
+                btn.classList.remove('text-slate-500');
+                btn.classList.add('active', 'text-orange-600');
+            }
+
+            // Init charts if needed
+            if (tabId === 'timeline') {
+                setTimeout(initGanttChart, 100);
+            }
+            if (tabId === 'cost') {
+                setTimeout(initBudgetChart, 100);
+            }
+        }
+
+        function showRoadmapTab(btn, tabId) {
+            // Hide roadmap contents
+            document.getElementById('mvp-roadmap').classList.add('hidden');
+            document.getElementById('phase2-roadmap').classList.add('hidden');
+            // Show selected
+            document.getElementById(tabId + '-roadmap').classList.remove('hidden');
+            
+            // Reset buttons styling
+            const container = document.getElementById('roadmap-tabs');
+            const buttons = container.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.className = "px-6 py-2 rounded-md font-semibold text-sm transition-all text-slate-500 hover:text-slate-700";
+            });
+            
+            // Style active
+            btn.className = "px-6 py-2 rounded-md font-semibold text-sm transition-all shadow bg-white text-orange-600";
+        }
+
+        // Removed window.onload chart initialization to prevent errors on hidden elements.
+        // Charts are now initialized in showMainTab.
     </script>
 </body>
 </html>
