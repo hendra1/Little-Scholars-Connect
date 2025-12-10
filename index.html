@@ -482,30 +482,33 @@
             <div id="cost-content" class="hidden fade-in space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div class="text-center mb-10">
-                        <h2 class="font-heading text-3xl font-bold text-slate-800">Total Investment Estimation</h2>
-                        <p class="text-slate-600 mt-2">Comprehensive development including Phase 1 MVP, Phase 2 AI/Health Suite, and Premium UI/UX.</p>
-                        <div class="mt-4 inline-block bg-yellow-50 text-yellow-800 px-4 py-2 rounded-lg text-sm font-semibold border border-yellow-200">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> Price Variance: ± 20-30% depending on final requirements & prototyping.
-                        </div>
+                        <h2 class="font-heading text-3xl font-bold text-slate-800">Development Cost & Engagement</h2>
+                        <p class="text-slate-600 mt-2">Flexible engagement models to suit your cash flow and risk preference.</p>
                     </div>
                     
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10 items-start">
+                    <!-- NEW: Two Engagement Scenarios (Grid) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 items-start">
                         
-                        <!-- Single Budget Option -->
-                        <div class="package-card bg-white border-2 border-orange-500 rounded-2xl p-8 relative overflow-hidden shadow-lg flex flex-col h-full">
-                            <div class="absolute top-0 right-0 bg-orange-500 px-4 py-1 rounded-bl-xl text-xs font-bold text-white tracking-widest uppercase">ALL-INCLUSIVE</div>
-                            
-                            <h3 class="text-2xl font-bold text-slate-900 flex items-center gap-2 mb-2">
-                                <i class="fa-solid fa-star text-orange-500"></i> Development Investment
-                            </h3>
-                            <p class="text-sm text-slate-500 mb-6">One-time fee for Design, Development, and Launch (Capex).</p>
-
-                            <div class="mb-8">
-                                <span class="text-5xl font-heading font-bold text-slate-800">~250<span class="text-2xl text-slate-500 font-normal">jt IDR</span></span>
+                        <!-- Scenario A: Detailed Turnkey -->
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-md hover:border-blue-300 transition-colors flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h4 class="text-xl font-heading font-bold text-slate-800">Option A: Fixed-Scope Turnkey</h4>
+                                    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-semibold uppercase tracking-wider">Locked Scope</span>
+                                </div>
+                                <div class="text-right">
+                                     <span class="block text-3xl font-bold text-slate-800">~250<span class="text-lg text-slate-500 font-normal">jt IDR</span></span>
+                                     <span class="text-xs text-rose-500 font-bold block mt-1">Variance: ± 20-30% *</span>
+                                </div>
                             </div>
 
-                            <div class="mb-6 pt-4 border-t border-slate-100">
-                                <p class="text-xs font-bold text-slate-500 uppercase mb-3">Professional Team:</p>
+                            <p class="text-sm text-slate-600 mb-6">
+                                Full project commitment. Price, Timeline, and Features are <strong>locked</strong> based on high-level requirements. Best for strict budget compliance but less flexible.
+                            </p>
+                            
+                            <!-- Team Section -->
+                            <div class="mb-6">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase mb-3">Professional Team</h5>
                                 <div class="flex flex-wrap gap-2">
                                     <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">Lead Full Stack</span>
                                     <span class="bg-orange-50 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">Senior UI/UX</span>
@@ -514,44 +517,93 @@
                                 </div>
                             </div>
 
-                            <ul class="text-sm text-slate-600 space-y-4 mb-2 flex-grow">
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-palette text-orange-500 mt-0.5"></i>
-                                    <span><strong>Custom UI/UX:</strong> "Heart-Centered" design system with premium micro-interactions & haptics.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-layer-group text-blue-500 mt-0.5"></i>
-                                    <span><strong>Phase 1 MVP:</strong> Complete operational suite (Attendance, Broadcast, Secure Portal).</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-wand-magic-sparkles text-purple-500 mt-0.5 sparkle-icon"></i>
-                                    <span><strong>Phase 2 AI Suite:</strong> Gen AI "Magic Summaries" & Growth Companion.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-chart-line text-emerald-500 mt-0.5"></i>
-                                    <span><strong>Health Suite:</strong> Interactive WHO Growth Charts & Vaccination Tracking.</span>
-                                </li>
-                            </ul>
+                            <!-- Feature Summary -->
+                            <div class="mb-6 flex-grow">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase mb-3">Feature Inclusions</h5>
+                                <ul class="text-sm text-slate-600 space-y-2">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-rocket text-blue-500 mt-1"></i>
+                                        <span>Phase 1: MVP Core (Attendance, Broadcast)</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-purple-500 mt-1"></i>
+                                        <span>Phase 2: Gen AI Suite & Health</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-paintbrush text-orange-500 mt-1"></i>
+                                        <span>Custom "Heart-Centered" UI/UX</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Budget Allocation Chart Area -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                <h5 class="text-xs font-bold text-slate-500 uppercase mb-2 text-center">Budget Allocation</h5>
+                                <div class="h-[150px] relative">
+                                    <canvas id="comparisonChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <p class="text-[10px] text-slate-400 mt-4 italic">* Variance depends on final requirements & prototyping outcomes.</p>
                         </div>
 
-                        <!-- Charts & Allocation -->
-                        <div class="flex flex-col gap-6">
-                            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 h-full">
-                                <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
-                                    <i class="fa-solid fa-chart-pie"></i> Budget Allocation
-                                </h3>
-                                <p class="text-xs text-slate-500 mb-4">Estimated distribution of the 250jt investment.</p>
-                                <div class="cost-chart-container h-[250px]">
-                                    <canvas id="comparisonChart"></canvas>
+                        <!-- Scenario B: Phased -->
+                        <div class="bg-white border-2 border-orange-500 rounded-2xl p-6 shadow-lg flex flex-col relative overflow-hidden h-full">
+                            <!-- Removed the Recommended Ribbon -->
+                            
+                            <div class="mb-4">
+                                <h4 class="text-xl font-heading font-bold text-orange-600">Option B: Agile Prototype-First</h4>
+                                <span class="text-xs bg-orange-50 text-orange-600 px-2 py-1 rounded font-semibold uppercase tracking-wider">Flexible</span>
+                            </div>
+
+                            <p class="text-sm text-slate-600 mb-6">
+                                Start with Design only. Validate the UX first. The development cost is an <strong>estimate</strong> that will be adjusted and finalized <strong>after</strong> the prototype is approved.
+                            </p>
+                            
+                            <div class="space-y-4 mb-6 flex-grow">
+                                <!-- Step 1 -->
+                                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600">1</div>
+                                        <div>
+                                            <div class="font-bold text-slate-800">Design & Prototype</div>
+                                            <div class="text-xs text-slate-500">Fixed Cost. Deliverable: Figma.</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right font-bold text-slate-800">~40jt</div>
+                                </div>
+                                
+                                <!-- Arrow -->
+                                <div class="flex justify-center text-slate-300"><i class="fa-solid fa-arrow-down"></i></div>
+
+                                <!-- Step 2 -->
+                                <div class="flex items-center justify-between p-4 bg-orange-50 rounded-xl border-2 border-orange-100 border-dashed">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-orange-200 flex items-center justify-center font-bold text-orange-700">2</div>
+                                        <div>
+                                            <div class="font-bold text-orange-800">Development Phase</div>
+                                            <div class="text-xs text-orange-600">Estimate. Adjusted based on Proto.</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right font-bold text-orange-800">~210jt</div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                <div class="flex gap-3">
+                                    <i class="fa-solid fa-circle-info text-blue-500 mt-1"></i>
+                                    <p class="text-xs text-blue-800 leading-relaxed">
+                                        <strong>Why choose this?</strong> You don't commit to the full 250jt until you see exactly what you are building. If the prototype simplifies features, the dev cost goes down.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Operational Costs Section -->
-                    <div class="mb-4">
+                    <!-- Operational Costs Section (Detailed Table) -->
+                    <div class="mb-12">
                         <h3 class="font-heading text-xl font-bold text-slate-800 mb-6 border-l-4 border-rose-500 pl-3">2. Operational Cost Estimates (Opex - Year 1)</h3>
-                        <p class="text-sm text-slate-600 mb-4">These are recurring running costs paid directly to service providers, <strong>separate</strong> from the development fee above.</p>
+                        <p class="text-sm text-slate-600 mb-4">Recurring costs paid directly to service providers (Apple, Google, Firebase, etc.).</p>
                         <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
                             <table class="min-w-full divide-y divide-slate-200 text-sm">
                                 <thead class="bg-slate-50">
@@ -591,6 +643,61 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    
+                    <!-- NEW Section 3: Annual Support & Man-Hours -->
+                    <div>
+                        <h3 class="font-heading text-xl font-bold text-slate-800 mb-6 border-l-4 border-blue-500 pl-3">3. Post-Launch Support & Growth</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            
+                            <!-- Monthly Maintenance -->
+                            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="bg-blue-50 p-2 rounded-lg text-blue-600"><i class="fa-solid fa-shield-heart"></i></div>
+                                        <h4 class="font-bold text-slate-800">Essential Maintenance</h4>
+                                    </div>
+                                    <p class="text-sm text-slate-500 mb-4">Server monitoring, bug fixes, and OS compatibility updates.</p>
+                                </div>
+                                <div class="text-xl font-bold text-slate-800 pt-4 border-t border-slate-100">~4.5jt <span class="text-sm font-normal text-slate-500">/ Month</span></div>
+                            </div>
+
+                            <!-- On-Demand Features -->
+                            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="bg-orange-50 p-2 rounded-lg text-orange-600"><i class="fa-solid fa-puzzle-piece"></i></div>
+                                        <h4 class="font-bold text-slate-800">On-Demand Features</h4>
+                                    </div>
+                                    <p class="text-sm text-slate-500 mb-4">
+                                        Pay-as-you-go. We provide an hourly estimate for any new request, you approve, we build.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-slate-100">
+                                    <span class="block text-xs text-slate-500 font-bold uppercase mb-1">Standard Rate</span>
+                                    <span class="text-xl font-bold text-slate-800">~230rb <span class="text-sm font-normal text-slate-500">/ Hour</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Annual Man-Hour Bank -->
+                            <div class="bg-slate-800 text-white rounded-xl p-6 shadow-lg relative overflow-hidden group flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4 relative z-10">
+                                        <div class="bg-white/20 p-2 rounded-lg text-white"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                                        <h4 class="font-bold">Annual Man-Hour Bank</h4>
+                                    </div>
+                                    <p class="text-sm text-slate-300 mb-4 relative z-10">
+                                        Bulk purchase hours for the year. Guaranteed availability for larger updates or continuous improvements.
+                                    </p>
+                                </div>
+                                <div class="relative z-10 pt-4 border-t border-slate-600">
+                                    <span class="block text-xs text-orange-400 font-bold uppercase mb-1">Package (300 Hours)</span>
+                                    <span class="text-2xl font-bold">~69jt <span class="text-sm font-normal text-slate-400">/ Year</span></span>
+                                    <p class="text-[10px] text-slate-400 mt-1 italic">Equivalent to ~230rb/hour.</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
