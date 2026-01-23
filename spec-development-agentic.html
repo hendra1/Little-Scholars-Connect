@@ -18,7 +18,8 @@
                 flowchart: {
                     useMaxWidth: true,
                     htmlLabels: true,
-                    curve: 'basis'
+                    curve: 'basis',
+                    padding: 20
                 },
                 themeVariables: {
                     primaryColor: '#EEF2FF',
@@ -26,7 +27,9 @@
                     primaryBorderColor: '#6366F1',
                     lineColor: '#64748B',
                     secondaryColor: '#F0FDFA',
-                    tertiaryColor: '#FEF2F2'
+                    tertiaryColor: '#FEF2F2',
+                    clusterBkg: '#F8FAFC',
+                    clusterBorder: '#CBD5E1'
                 }
             });
         } catch (e) {
@@ -477,28 +480,48 @@ graph TD
     classDef orch fill:#6366F1,stroke:#4338CA,color:white,rx:5,ry:5
     classDef spec fill:#EC4899,stroke:#DB2777,color:white,rx:5,ry:5
 
-    %% Nodes
+    %% Actors outside subgraphs
     PO((Product Owner)):::human
     Dev((Developer)):::human
-    KB[Constitution Agent]:::kb_agent
-    
-    Orch["Spec Dev Agent<br/>(Orchestrator)"]:::orch
     Docs["Docs & Repo"]:::jira
-    
-    Spec[Spec Agent]:::spec
-    Clarify[Clarify Agent]:::clarify
-    Plan[Plan Agent]:::agent
-    Check[Checklist Agent]:::check
-    Analyze[Analyze Agent]:::analyze
-    Impl[Impl. Agent]:::impl
-    SyncRA[Sync Review Agent]:::sync
-    
-    PR[GitHub PR]:::jira
 
-    %% Flow
+    subgraph Knowledge["Stage 0: Knowledge Foundation"]
+        direction TB
+        KB[Constitution Agent]:::kb_agent
+    end
+
+    subgraph OrchLayer["Orchestration Layer"]
+        Orch["Spec Dev Agent<br/>(Orchestrator)"]:::orch
+    end
+
+    subgraph SpecPhase["Stage 1: Specification"]
+        direction TB
+        Spec[Spec Agent]:::spec
+        Clarify[Clarify Agent]:::clarify
+    end
+
+    subgraph PlanPhase["Stage 2 & 3: Planning & Analysis"]
+        direction TB
+        Plan[Plan Agent]:::agent
+        Check[Checklist Agent]:::check
+        Analyze[Analyze Agent]:::analyze
+    end
+
+    subgraph ExecPhase["Stage 4: Execution"]
+        direction TB
+        Impl[Impl. Agent]:::impl
+        PR[GitHub PR]:::jira
+    end
+
+    subgraph ReviewPhase["Stage 5: Review & Sync"]
+        direction TB
+        SyncRA[Sync Review Agent]:::sync
+    end
+
+    %% Flow Connections
     Docs -->|Ingest| KB
     
-    PO -->|Ticket OR Direct Prompt| Orch
+    PO -->|Ticket/Prompt| Orch
     Orch -->|Trigger| Spec
     Spec -->|Draft Spec| Clarify
     
