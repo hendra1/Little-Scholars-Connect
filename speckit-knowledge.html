@@ -1,0 +1,259 @@
+import React from 'react';
+import { ArrowDown, Database, FileText, Terminal, Shield, Zap, RefreshCw, LayoutTemplate, Scale, GitBranch, CheckCircle, Lock } from 'lucide-react';
+
+const SDDInfographic = () => {
+  return (
+    <div className="min-h-screen bg-slate-900 text-slate-100 p-4 md:p-8 font-sans">
+      <div className="max-w-4xl mx-auto space-y-8">
+        
+        {/* Header Section */}
+        <header className="text-center py-12 border-b border-slate-700 bg-gradient-to-b from-slate-800 to-slate-900 rounded-3xl shadow-2xl">
+          <div className="inline-block p-3 bg-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-500/20">
+            <FileText size={48} className="text-white" />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+            <span className="text-blue-400">Specification</span>-Driven Development
+          </h1>
+          <p className="text-xl md:text-2xl text-slate-400 font-light">
+            The Power Inversion: Code Serves the Spec
+          </p>
+        </header>
+
+        {/* The Power Inversion Comparison */}
+        <section className="grid md:grid-cols-2 gap-6">
+          <div className="bg-slate-800/50 p-8 rounded-3xl border border-red-900/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-10"><Database size={100} /></div>
+            <h3 className="text-2xl font-bold text-red-400 mb-6 flex items-center gap-2">
+              <span className="text-sm bg-red-900/50 px-2 py-1 rounded">The Old Way</span>
+              Code is King
+            </h3>
+            <ul className="space-y-4 text-slate-300">
+              <li className="flex gap-3 items-start">
+                <span className="text-red-500 mt-1">✕</span>
+                <div>
+                  <strong className="block text-white">Specs = Scaffolding</strong>
+                  Built then discarded. Code becomes the only truth.
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <span className="text-red-500 mt-1">✕</span>
+                <div>
+                  <strong className="block text-white">The Gap</strong>
+                  Permanent drift between "What we wanted" and "What we built."
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <span className="text-red-500 mt-1">✕</span>
+                <div>
+                  <strong className="block text-white">Pivots are Painful</strong>
+                  Requires manual rewrites and creates tech debt.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-blue-900/40 to-slate-800 p-8 rounded-3xl border border-blue-500/30 relative overflow-hidden shadow-lg shadow-blue-900/20">
+            <div className="absolute top-0 right-0 p-4 opacity-10"><Scale size={100} /></div>
+            <h3 className="text-2xl font-bold text-blue-400 mb-6 flex items-center gap-2">
+              <span className="text-sm bg-blue-900/50 px-2 py-1 rounded border border-blue-400/30">The SDD Way</span>
+              Spec is Source
+            </h3>
+            <ul className="space-y-4 text-slate-200">
+              <li className="flex gap-3 items-start">
+                <CheckCircle className="text-green-400 mt-1 shrink-0" size={20} />
+                <div>
+                  <strong className="block text-white">Code = Generated Output</strong>
+                  The PRD generates the implementation. No gap.
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <CheckCircle className="text-green-400 mt-1 shrink-0" size={20} />
+                <div>
+                  <strong className="block text-white">Executable Specs</strong>
+                  Precise, complete, unambiguous definitions.
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <CheckCircle className="text-green-400 mt-1 shrink-0" size={20} />
+                <div>
+                  <strong className="block text-white">Pivots are Regenerations</strong>
+                  Change the spec, regenerate the code.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* The Workflow Diagram */}
+        <section className="bg-slate-800 p-8 rounded-3xl border border-slate-700">
+          <h2 className="text-2xl font-bold text-center mb-10 flex justify-center items-center gap-2">
+            <RefreshCw className="text-purple-400" />
+            The Continuous Transformation Loop
+          </h2>
+          
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-blue-500/20 via-purple-500/50 to-blue-500/20 -translate-y-1/2 z-0"></div>
+
+            {/* Step 1 */}
+            <div className="relative z-10 bg-slate-900 p-6 rounded-2xl border border-slate-600 w-full md:w-64 text-center hover:border-blue-400 transition-colors">
+              <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg shadow-blue-500/30">1</div>
+              <h4 className="font-bold text-lg mb-2">Intent & Dialogue</h4>
+              <p className="text-sm text-slate-400">Human & AI refine vague ideas into a structured PRD.</p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="relative z-10 bg-slate-900 p-6 rounded-2xl border border-slate-600 w-full md:w-64 text-center hover:border-purple-400 transition-colors">
+              <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg shadow-purple-500/30">2</div>
+              <h4 className="font-bold text-lg mb-2">Plan Generation</h4>
+              <p className="text-sm text-slate-400">Research agents & templates create detailed technical plans.</p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative z-10 bg-slate-900 p-6 rounded-2xl border border-slate-600 w-full md:w-64 text-center hover:border-green-400 transition-colors">
+              <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg shadow-green-500/30">3</div>
+              <h4 className="font-bold text-lg mb-2">Code Transformation</h4>
+              <p className="text-sm text-slate-400">Plan is executed into code, tests, and API contracts.</p>
+            </div>
+          </div>
+          
+          <div className="mt-8 text-center text-sm text-slate-500 italic border-t border-slate-700 pt-4">
+            *Production feedback (metrics, bugs) loops back to update Step 1 (The Spec), not the code directly.
+          </div>
+        </section>
+
+        {/* The Tools Section */}
+        <section className="grid md:grid-cols-5 gap-6">
+          <div className="md:col-span-2 bg-slate-950 p-6 rounded-3xl border border-slate-800 font-mono text-sm relative shadow-inner">
+            <div className="absolute top-4 right-4 text-slate-700"><Terminal /></div>
+            <h3 className="text-green-400 font-bold mb-4 text-lg">The Command Interface</h3>
+            <div className="space-y-6">
+              <div>
+                <div className="text-purple-400 mb-1">/speckit.specify [idea]</div>
+                <div className="text-slate-500 pl-4 border-l-2 border-slate-800">
+                  Auto-creates branch, scans existing specs, generates PRD.
+                </div>
+              </div>
+              <div>
+                <div className="text-blue-400 mb-1">/speckit.plan</div>
+                <div className="text-slate-500 pl-4 border-l-2 border-slate-800">
+                  Maps requirements to architecture, schema, & contracts.
+                </div>
+              </div>
+              <div>
+                <div className="text-orange-400 mb-1">/speckit.tasks</div>
+                <div className="text-slate-500 pl-4 border-l-2 border-slate-800">
+                  Derives executable task list & identifies parallel work.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:col-span-3 bg-gradient-to-r from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700 flex flex-col justify-center">
+            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+              <Zap className="text-yellow-400" />
+              Efficiency Gain
+            </h3>
+            <div className="space-y-4">
+              <div className="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
+                <div className="bg-slate-500 h-4 w-full animate-pulse"></div>
+              </div>
+              <div className="flex justify-between text-sm text-slate-400">
+                <span>Traditional Doc Work: <strong>12 Hours</strong></span>
+              </div>
+              
+              <div className="w-full bg-slate-700 rounded-full h-4 overflow-hidden mt-6">
+                <div className="bg-yellow-400 h-4 w-[5%]"></div>
+              </div>
+              <div className="flex justify-between text-sm text-white">
+                <span>SDD Automation: <strong>15 Minutes</strong></span>
+              </div>
+            </div>
+            <p className="mt-6 text-slate-300 text-sm">
+              Complete feature specs, test plans, and data models generated, versioned, and ready for code.
+            </p>
+          </div>
+        </section>
+
+        {/* The Constitution Section */}
+        <section className="bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden">
+          <div className="bg-slate-800 p-6 border-b border-slate-700 flex justify-between items-center">
+            <div>
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <Shield className="text-blue-400" />
+                The Constitution
+              </h2>
+              <p className="text-slate-400 text-sm">Immutable Architectural Guardrails</p>
+            </div>
+            <Lock className="text-slate-600" />
+          </div>
+          
+          <div className="p-8 grid md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="bg-blue-900/30 p-3 rounded-lg h-fit text-blue-400 font-bold border border-blue-500/20">Art. I</div>
+                <div>
+                  <h4 className="font-bold text-white">Library-First Principle</h4>
+                  <p className="text-sm text-slate-400">Every feature starts as a standalone library. No monolithic coupling.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="bg-blue-900/30 p-3 rounded-lg h-fit text-blue-400 font-bold border border-blue-500/20">Art. II</div>
+                <div>
+                  <h4 className="font-bold text-white">CLI Mandate</h4>
+                  <p className="text-sm text-slate-400">Everything must be testable via text input/output (stdin/stdout).</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+               <div className="flex gap-4">
+                <div className="bg-red-900/30 p-3 rounded-lg h-fit text-red-400 font-bold border border-red-500/20">Art. III</div>
+                <div>
+                  <h4 className="font-bold text-white">Test-First Imperative</h4>
+                  <p className="text-sm text-slate-400">Non-negotiable. Tests must be written and FAIL (Red Phase) before code generation.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="bg-blue-900/30 p-3 rounded-lg h-fit text-blue-400 font-bold border border-blue-500/20">Art. VII</div>
+                <div>
+                  <h4 className="font-bold text-white">Simplicity & Anti-Abstraction</h4>
+                  <p className="text-sm text-slate-400">Strict limits on project structure. Direct framework usage. No over-engineering.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Template Intelligence */}
+        <section className="bg-slate-800/50 p-6 rounded-3xl border border-dashed border-slate-600 text-center">
+          <div className="inline-flex items-center gap-2 bg-slate-700 px-4 py-2 rounded-full mb-4">
+            <LayoutTemplate size={16} className="text-purple-400" />
+            <span className="text-sm font-semibold text-slate-200">Structured Templates</span>
+          </div>
+          <h3 className="text-xl font-bold mb-4">How We Tame the AI</h3>
+          <div className="grid md:grid-cols-3 gap-4 text-left">
+            <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
+              <strong className="text-purple-400 block mb-1">Uncertainty Markers</strong>
+              <p className="text-xs text-slate-400">Forces AI to use <code>[NEEDS CLARIFICATION]</code> instead of guessing details.</p>
+            </div>
+            <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
+              <strong className="text-purple-400 block mb-1">Checklists</strong>
+              <p className="text-xs text-slate-400">"Unit tests" for the spec itself. Ensures requirements are complete and testable.</p>
+            </div>
+            <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
+              <strong className="text-purple-400 block mb-1">Phase Gates</strong>
+              <p className="text-xs text-slate-400">Pre-implementation checks that enforce Constitutional compliance.</p>
+            </div>
+          </div>
+        </section>
+
+        <footer className="text-center pt-8 pb-4">
+          <p className="text-slate-500 text-sm">Specification-Driven Development © 2024</p>
+        </footer>
+      </div>
+    </div>
+  );
+};
+
+export default SDDInfographic;
