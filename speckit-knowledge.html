@@ -1,259 +1,356 @@
-import React from 'react';
-import { ArrowDown, Database, FileText, Terminal, Shield, Zap, RefreshCw, LayoutTemplate, Scale, GitBranch, CheckCircle, Lock } from 'lucide-react';
-
-const SDDInfographic = () => {
-  return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 p-4 md:p-8 font-sans">
-      <div className="max-w-4xl mx-auto space-y-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spec-Driven Development | Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --border: #30363d;
+            --accent-primary: #2f81f7; /* GitHub Blue */
+            --accent-secondary: #238636; /* GitHub Green */
+            --accent-purple: #a371f7; /* AI Purple */
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+        }
         
-        {/* Header Section */}
-        <header className="text-center py-12 border-b border-slate-700 bg-gradient-to-b from-slate-800 to-slate-900 rounded-3xl shadow-2xl">
-          <div className="inline-block p-3 bg-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-500/20">
-            <FileText size={48} className="text-white" />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-            <span className="text-blue-400">Specification</span>-Driven Development
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-400 font-light">
-            The Power Inversion: Code Serves the Spec
-          </p>
-        </header>
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        {/* The Power Inversion Comparison */}
-        <section className="grid md:grid-cols-2 gap-6">
-          <div className="bg-slate-800/50 p-8 rounded-3xl border border-red-900/30 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-10"><Database size={100} /></div>
-            <h3 className="text-2xl font-bold text-red-400 mb-6 flex items-center gap-2">
-              <span className="text-sm bg-red-900/50 px-2 py-1 rounded">The Old Way</span>
-              Code is King
-            </h3>
-            <ul className="space-y-4 text-slate-300">
-              <li className="flex gap-3 items-start">
-                <span className="text-red-500 mt-1">✕</span>
-                <div>
-                  <strong className="block text-white">Specs = Scaffolding</strong>
-                  Built then discarded. Code becomes the only truth.
-                </div>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="text-red-500 mt-1">✕</span>
-                <div>
-                  <strong className="block text-white">The Gap</strong>
-                  Permanent drift between "What we wanted" and "What we built."
-                </div>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="text-red-500 mt-1">✕</span>
-                <div>
-                  <strong className="block text-white">Pivots are Painful</strong>
-                  Requires manual rewrites and creates tech debt.
-                </div>
-              </li>
-            </ul>
-          </div>
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-          <div className="bg-gradient-to-br from-blue-900/40 to-slate-800 p-8 rounded-3xl border border-blue-500/30 relative overflow-hidden shadow-lg shadow-blue-900/20">
-            <div className="absolute top-0 right-0 p-4 opacity-10"><Scale size={100} /></div>
-            <h3 className="text-2xl font-bold text-blue-400 mb-6 flex items-center gap-2">
-              <span className="text-sm bg-blue-900/50 px-2 py-1 rounded border border-blue-400/30">The SDD Way</span>
-              Spec is Source
-            </h3>
-            <ul className="space-y-4 text-slate-200">
-              <li className="flex gap-3 items-start">
-                <CheckCircle className="text-green-400 mt-1 shrink-0" size={20} />
-                <div>
-                  <strong className="block text-white">Code = Generated Output</strong>
-                  The PRD generates the implementation. No gap.
-                </div>
-              </li>
-              <li className="flex gap-3 items-start">
-                <CheckCircle className="text-green-400 mt-1 shrink-0" size={20} />
-                <div>
-                  <strong className="block text-white">Executable Specs</strong>
-                  Precise, complete, unambiguous definitions.
-                </div>
-              </li>
-              <li className="flex gap-3 items-start">
-                <CheckCircle className="text-green-400 mt-1 shrink-0" size={20} />
-                <div>
-                  <strong className="block text-white">Pivots are Regenerations</strong>
-                  Change the spec, regenerate the code.
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
+        .gradient-text {
+            background: linear-gradient(135deg, #7ee787, #2f81f7, #a371f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        {/* The Workflow Diagram */}
-        <section className="bg-slate-800 p-8 rounded-3xl border border-slate-700">
-          <h2 className="text-2xl font-bold text-center mb-10 flex justify-center items-center gap-2">
-            <RefreshCw className="text-purple-400" />
-            The Continuous Transformation Loop
-          </h2>
-          
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 relative">
-            {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-blue-500/20 via-purple-500/50 to-blue-500/20 -translate-y-1/2 z-0"></div>
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-primary);
+        }
 
-            {/* Step 1 */}
-            <div className="relative z-10 bg-slate-900 p-6 rounded-2xl border border-slate-600 w-full md:w-64 text-center hover:border-blue-400 transition-colors">
-              <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg shadow-blue-500/30">1</div>
-              <h4 className="font-bold text-lg mb-2">Intent & Dialogue</h4>
-              <p className="text-sm text-slate-400">Human & AI refine vague ideas into a structured PRD.</p>
+        .step-connector::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 2rem;
+            width: 2px;
+            background: #30363d;
+            z-index: 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #58a6ff;
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary), var(--accent-purple));
+            z-index: -1;
+            border-radius: 0.75rem;
+            opacity: 0.3;
+            filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- Header / Hero -->
+    <header class="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+        <div class="inline-flex items-center justify-center px-3 py-1 mb-6 rounded-full border border-gray-700 bg-gray-800/50 backdrop-blur-sm">
+            <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+            <span class="text-xs font-mono text-gray-300">GITHUB / SPEC-KIT</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+            Spec-Driven <br class="hidden md:block" />
+            <span class="gradient-text">Development</span>
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+            Invert the power structure. <br>
+            <span class="text-white font-semibold">Specifications</span> serve as the source of truth that generates implementation.
+        </p>
+
+        <!-- Visual Metaphor: Power Inversion -->
+        <div class="flex flex-col md:flex-row justify-center items-center gap-8 mt-12 animate-fade-in-up">
+            <!-- OLD WAY -->
+            <div class="opacity-50 grayscale scale-90 p-6 border border-red-900/30 rounded-xl bg-red-900/10">
+                <div class="text-xs uppercase tracking-widest text-red-400 mb-2 font-bold">The Old Way</div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-gray-800 p-4 rounded-lg mb-2 w-32 border border-gray-600">Code</div>
+                    <svg class="w-6 h-6 text-red-500 my-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <div class="bg-gray-800 p-2 rounded-lg text-sm w-24 text-gray-500 border border-dashed border-gray-600">Docs</div>
+                </div>
             </div>
 
-            {/* Step 2 */}
-            <div className="relative z-10 bg-slate-900 p-6 rounded-2xl border border-slate-600 w-full md:w-64 text-center hover:border-purple-400 transition-colors">
-              <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg shadow-purple-500/30">2</div>
-              <h4 className="font-bold text-lg mb-2">Plan Generation</h4>
-              <p className="text-sm text-slate-400">Research agents & templates create detailed technical plans.</p>
-            </div>
+            <!-- ARROW -->
+            <svg class="w-12 h-12 text-gray-600 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
 
-            {/* Step 3 */}
-            <div className="relative z-10 bg-slate-900 p-6 rounded-2xl border border-slate-600 w-full md:w-64 text-center hover:border-green-400 transition-colors">
-              <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg shadow-green-500/30">3</div>
-              <h4 className="font-bold text-lg mb-2">Code Transformation</h4>
-              <p className="text-sm text-slate-400">Plan is executed into code, tests, and API contracts.</p>
-            </div>
-          </div>
-          
-          <div className="mt-8 text-center text-sm text-slate-500 italic border-t border-slate-700 pt-4">
-            *Production feedback (metrics, bugs) loops back to update Step 1 (The Spec), not the code directly.
-          </div>
-        </section>
-
-        {/* The Tools Section */}
-        <section className="grid md:grid-cols-5 gap-6">
-          <div className="md:col-span-2 bg-slate-950 p-6 rounded-3xl border border-slate-800 font-mono text-sm relative shadow-inner">
-            <div className="absolute top-4 right-4 text-slate-700"><Terminal /></div>
-            <h3 className="text-green-400 font-bold mb-4 text-lg">The Command Interface</h3>
-            <div className="space-y-6">
-              <div>
-                <div className="text-purple-400 mb-1">/speckit.specify [idea]</div>
-                <div className="text-slate-500 pl-4 border-l-2 border-slate-800">
-                  Auto-creates branch, scans existing specs, generates PRD.
+            <!-- SDD WAY -->
+            <div class="glow-effect p-1 rounded-xl">
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 relative z-10">
+                    <div class="text-xs uppercase tracking-widest text-green-400 mb-2 font-bold">The SDD Way</div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-blue-600/20 border border-blue-500 text-blue-100 p-4 rounded-lg mb-2 w-40 shadow-[0_0_15px_rgba(59,130,246,0.5)] font-bold">
+                            Specification
+                        </div>
+                        <svg class="w-6 h-6 text-green-500 my-1 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <div class="flex gap-2">
+                            <div class="bg-gray-800 p-3 rounded-lg text-sm border border-gray-600 font-mono">Plan</div>
+                            <div class="bg-gray-800 p-3 rounded-lg text-sm border border-gray-600 font-mono">Code</div>
+                            <div class="bg-gray-800 p-3 rounded-lg text-sm border border-gray-600 font-mono">Tests</div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div>
-                <div className="text-blue-400 mb-1">/speckit.plan</div>
-                <div className="text-slate-500 pl-4 border-l-2 border-slate-800">
-                  Maps requirements to architecture, schema, & contracts.
-                </div>
-              </div>
-              <div>
-                <div className="text-orange-400 mb-1">/speckit.tasks</div>
-                <div className="text-slate-500 pl-4 border-l-2 border-slate-800">
-                  Derives executable task list & identifies parallel work.
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
+    </header>
 
-          <div className="md:col-span-3 bg-gradient-to-r from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700 flex flex-col justify-center">
-            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-              <Zap className="text-yellow-400" />
-              Efficiency Gain
-            </h3>
-            <div className="space-y-4">
-              <div className="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
-                <div className="bg-slate-500 h-4 w-full animate-pulse"></div>
-              </div>
-              <div className="flex justify-between text-sm text-slate-400">
-                <span>Traditional Doc Work: <strong>12 Hours</strong></span>
-              </div>
-              
-              <div className="w-full bg-slate-700 rounded-full h-4 overflow-hidden mt-6">
-                <div className="bg-yellow-400 h-4 w-[5%]"></div>
-              </div>
-              <div className="flex justify-between text-sm text-white">
-                <span>SDD Automation: <strong>15 Minutes</strong></span>
-              </div>
+    <!-- Why Now Section -->
+    <section class="max-w-6xl mx-auto px-4 mb-24">
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-4 text-purple-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">AI Capabilities</h3>
+                <p class="text-sm text-gray-400">Natural language specs can finally reliably generate working code, enabling "Intent-Driven Development."</p>
             </div>
-            <p className="mt-6 text-slate-300 text-sm">
-              Complete feature specs, test plans, and data models generated, versioned, and ready for code.
-            </p>
-          </div>
-        </section>
+            <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mb-4 text-blue-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Rising Complexity</h3>
+                <p class="text-sm text-gray-400">Modern systems have too many moving parts. SDD ensures systematic alignment across dozens of services.</p>
+            </div>
+            <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-4 text-green-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Pace of Change</h3>
+                <p class="text-sm text-gray-400">Pivoting is expected. With SDD, pivots are systematic regenerations, not manual rewrites.</p>
+            </div>
+        </div>
+    </section>
 
-        {/* The Constitution Section */}
-        <section className="bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden">
-          <div className="bg-slate-800 p-6 border-b border-slate-700 flex justify-between items-center">
-            <div>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                <Shield className="text-blue-400" />
-                The Constitution
-              </h2>
-              <p className="text-slate-400 text-sm">Immutable Architectural Guardrails</p>
-            </div>
-            <Lock className="text-slate-600" />
-          </div>
-          
-          <div className="p-8 grid md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="bg-blue-900/30 p-3 rounded-lg h-fit text-blue-400 font-bold border border-blue-500/20">Art. I</div>
-                <div>
-                  <h4 className="font-bold text-white">Library-First Principle</h4>
-                  <p className="text-sm text-slate-400">Every feature starts as a standalone library. No monolithic coupling.</p>
+    <!-- Detailed Process Section -->
+    <section class="max-w-5xl mx-auto px-4 mb-24">
+        <h2 class="text-3xl font-bold text-center mb-16"><span class="border-b-4 border-blue-500 pb-2">The Detailed Process</span></h2>
+        
+        <div class="relative step-connector space-y-12">
+            
+            <!-- Step 1 -->
+            <div class="relative pl-16 group">
+                <div class="absolute left-0 w-16 h-16 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 border-2 border-blue-500 flex items-center justify-center text-blue-500 font-bold z-10 shadow-[0_0_10px_rgba(59,130,246,0.4)]">1</div>
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="bg-blue-900/30 p-3 rounded-lg h-fit text-blue-400 font-bold border border-blue-500/20">Art. II</div>
-                <div>
-                  <h4 className="font-bold text-white">CLI Mandate</h4>
-                  <p className="text-sm text-slate-400">Everything must be testable via text input/output (stdin/stdout).</p>
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Initialize & Establish Principles</h3>
+                        <code class="text-xs bg-gray-800 text-purple-400 px-2 py-1 rounded mt-2 md:mt-0 font-mono">specify init</code>
+                    </div>
+                    <p class="text-gray-400 mb-4">Set up the project structure and define the "Constitution". This governance guides all AI decisions regarding code quality, testing, and consistency.</p>
+                    <div class="bg-black/30 rounded p-3 font-mono text-sm text-green-400 border border-gray-700">
+                        /speckit.constitution
+                    </div>
                 </div>
-              </div>
             </div>
 
-            <div className="space-y-6">
-               <div className="flex gap-4">
-                <div className="bg-red-900/30 p-3 rounded-lg h-fit text-red-400 font-bold border border-red-500/20">Art. III</div>
-                <div>
-                  <h4 className="font-bold text-white">Test-First Imperative</h4>
-                  <p className="text-sm text-slate-400">Non-negotiable. Tests must be written and FAIL (Red Phase) before code generation.</p>
+            <!-- Step 2 -->
+            <div class="relative pl-16 group">
+                <div class="absolute left-0 w-16 h-16 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-gray-300 font-bold z-10 group-hover:border-blue-500 transition-colors">2</div>
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="bg-blue-900/30 p-3 rounded-lg h-fit text-blue-400 font-bold border border-blue-500/20">Art. VII</div>
-                <div>
-                  <h4 className="font-bold text-white">Simplicity & Anti-Abstraction</h4>
-                  <p className="text-sm text-slate-400">Strict limits on project structure. Direct framework usage. No over-engineering.</p>
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Create Specification</h3>
+                        <code class="text-xs bg-gray-800 text-purple-400 px-2 py-1 rounded mt-2 md:mt-0 font-mono">/speckit.specify</code>
+                    </div>
+                    <p class="text-gray-400 mb-4">Describe <strong>WHAT</strong> you want to build and <strong>WHY</strong>. <span class="text-red-400">Do not focus on the tech stack yet.</span> The AI creates a feature branch and structured spec document.</p>
+                    <ul class="text-sm text-gray-500 list-disc list-inside">
+                        <li>Focus on user stories</li>
+                        <li>Define measurable success criteria</li>
+                        <li>Generates <code>specs/001-feature/spec.md</code></li>
+                    </ul>
                 </div>
-              </div>
             </div>
-          </div>
-        </section>
 
-        {/* Template Intelligence */}
-        <section className="bg-slate-800/50 p-6 rounded-3xl border border-dashed border-slate-600 text-center">
-          <div className="inline-flex items-center gap-2 bg-slate-700 px-4 py-2 rounded-full mb-4">
-            <LayoutTemplate size={16} className="text-purple-400" />
-            <span className="text-sm font-semibold text-slate-200">Structured Templates</span>
-          </div>
-          <h3 className="text-xl font-bold mb-4">How We Tame the AI</h3>
-          <div className="grid md:grid-cols-3 gap-4 text-left">
-            <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
-              <strong className="text-purple-400 block mb-1">Uncertainty Markers</strong>
-              <p className="text-xs text-slate-400">Forces AI to use <code>[NEEDS CLARIFICATION]</code> instead of guessing details.</p>
+            <!-- Step 3 -->
+            <div class="relative pl-16 group">
+                <div class="absolute left-0 w-16 h-16 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-gray-300 font-bold z-10 group-hover:border-blue-500 transition-colors">3</div>
+                </div>
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Refine & Clarify</h3>
+                        <code class="text-xs bg-gray-800 text-purple-400 px-2 py-1 rounded mt-2 md:mt-0 font-mono">/speckit.clarify</code>
+                    </div>
+                    <p class="text-gray-400">Run a structured clarification workflow. The AI quizzes you on edge cases and ambiguities to reduce rework downstream. <strong>Required before planning.</strong></p>
+                </div>
             </div>
-            <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
-              <strong className="text-purple-400 block mb-1">Checklists</strong>
-              <p className="text-xs text-slate-400">"Unit tests" for the spec itself. Ensures requirements are complete and testable.</p>
-            </div>
-            <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
-              <strong className="text-purple-400 block mb-1">Phase Gates</strong>
-              <p className="text-xs text-slate-400">Pre-implementation checks that enforce Constitutional compliance.</p>
-            </div>
-          </div>
-        </section>
 
-        <footer className="text-center pt-8 pb-4">
-          <p className="text-slate-500 text-sm">Specification-Driven Development © 2024</p>
-        </footer>
-      </div>
-    </div>
-  );
-};
+            <!-- Step 4 -->
+            <div class="relative pl-16 group">
+                <div class="absolute left-0 w-16 h-16 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-gray-300 font-bold z-10 group-hover:border-blue-500 transition-colors">4</div>
+                </div>
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Technical Planning</h3>
+                        <code class="text-xs bg-gray-800 text-purple-400 px-2 py-1 rounded mt-2 md:mt-0 font-mono">/speckit.plan</code>
+                    </div>
+                    <p class="text-gray-400 mb-4">Define the <strong>HOW</strong>. Provide your tech stack, architecture choices, and libraries. The AI maps requirements to technical decisions.</p>
+                    <div class="p-3 bg-blue-900/20 border border-blue-800 rounded text-sm text-blue-200">
+                        <strong>Research Agents:</strong> The AI may spin up research tasks to investigate library compatibility or specific implementation details before finalizing the plan.
+                    </div>
+                </div>
+            </div>
 
-export default SDDInfographic;
+             <!-- Step 5 -->
+             <div class="relative pl-16 group">
+                <div class="absolute left-0 w-16 h-16 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-gray-300 font-bold z-10 group-hover:border-blue-500 transition-colors">5</div>
+                </div>
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Validation</h3>
+                        <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded mt-2 md:mt-0 font-mono">Manual Audit</span>
+                    </div>
+                    <p class="text-gray-400">Ask the AI to audit its own plan. Check for missing pieces, over-engineering, or violations of the Constitution.</p>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="relative pl-16 group">
+                <div class="absolute left-0 w-16 h-16 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-gray-300 font-bold z-10 group-hover:border-blue-500 transition-colors">6</div>
+                </div>
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Task Breakdown</h3>
+                        <code class="text-xs bg-gray-800 text-purple-400 px-2 py-1 rounded mt-2 md:mt-0 font-mono">/speckit.tasks</code>
+                    </div>
+                    <p class="text-gray-400">Generate an actionable <code>tasks.md</code> file. This organizes work by user story, manages dependencies, and identifies tasks that can run in parallel <code>[P]</code>.</p>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="relative pl-16 group">
+                <div class="absolute left-0 w-16 h-16 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 border-2 border-green-500 flex items-center justify-center text-green-400 font-bold z-10 shadow-[0_0_10px_rgba(35,134,54,0.4)]">7</div>
+                </div>
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Execute Implementation</h3>
+                        <code class="text-xs bg-gray-800 text-purple-400 px-2 py-1 rounded mt-2 md:mt-0 font-mono">/speckit.implement</code>
+                    </div>
+                    <p class="text-gray-400 mb-2">The AI executes the tasks in order.</p>
+                    <div class="flex flex-wrap gap-2 text-xs font-mono">
+                        <span class="bg-green-900/30 text-green-300 px-2 py-1 rounded border border-green-800">TDD Enforced</span>
+                        <span class="bg-blue-900/30 text-blue-300 px-2 py-1 rounded border border-blue-800">Dependency Aware</span>
+                        <span class="bg-purple-900/30 text-purple-300 px-2 py-1 rounded border border-purple-800">Auto-Refinement</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- The Constitution -->
+    <section class="max-w-7xl mx-auto px-4 mb-24">
+        <div class="bg-gradient-to-r from-[#161b22] to-[#0d1117] border border-[#30363d] rounded-2xl p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-32 bg-purple-600/10 rounded-full filter blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+            
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <svg class="w-8 h-8 mr-3 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                The Constitution: Core Articles
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 relative z-10">
+                <div class="space-y-3">
+                    <h3 class="text-xl font-bold text-white border-b border-gray-700 pb-2">Article I: Library-First</h3>
+                    <p class="text-gray-400 text-sm">Every feature must begin as a standalone library. No exceptions. Forces modular design and clean boundaries.</p>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-xl font-bold text-white border-b border-gray-700 pb-2">Article II: CLI Interface</h3>
+                    <p class="text-gray-400 text-sm">Every library must expose functionality via CLI (stdin/stdout). Ensures observability and easy testing.</p>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-xl font-bold text-white border-b border-gray-700 pb-2">Article III: Test-First</h3>
+                    <p class="text-gray-400 text-sm"><span class="text-red-400 font-bold">NON-NEGOTIABLE.</span> No implementation code before tests are written, validated, and failing (Red phase).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Command Cheat Sheet -->
+    <section class="max-w-4xl mx-auto px-4 mb-20">
+        <h2 class="text-2xl font-bold text-center mb-8">Command Center</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-gray-800/50 p-4 rounded-lg flex items-center border border-gray-700">
+                <code class="text-purple-400 font-bold font-mono mr-4 w-1/3">/speckit.specify</code>
+                <span class="text-sm text-gray-300">Start a new feature spec</span>
+            </div>
+            <div class="bg-gray-800/50 p-4 rounded-lg flex items-center border border-gray-700">
+                <code class="text-purple-400 font-bold font-mono mr-4 w-1/3">/speckit.clarify</code>
+                <span class="text-sm text-gray-300">Resolve ambiguities</span>
+            </div>
+            <div class="bg-gray-800/50 p-4 rounded-lg flex items-center border border-gray-700">
+                <code class="text-purple-400 font-bold font-mono mr-4 w-1/3">/speckit.plan</code>
+                <span class="text-sm text-gray-300">Generate tech plan</span>
+            </div>
+            <div class="bg-gray-800/50 p-4 rounded-lg flex items-center border border-gray-700">
+                <code class="text-purple-400 font-bold font-mono mr-4 w-1/3">/speckit.tasks</code>
+                <span class="text-sm text-gray-300">Create task breakdown</span>
+            </div>
+            <div class="bg-gray-800/50 p-4 rounded-lg flex items-center border border-gray-700 md:col-span-2">
+                <code class="text-green-400 font-bold font-mono mr-4 w-1/6">/speckit.implement</code>
+                <span class="text-sm text-gray-300">Execute the plan with TDD</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center border-t border-gray-800 pt-12 pb-8">
+        <p class="text-gray-500 mb-4">Based on <a href="https://github.com/github/spec-kit" class="text-blue-500 hover:underline">github/spec-kit</a></p>
+        <div class="text-xs text-gray-600">
+            Build high-quality software faster. Stop vibe coding. Start spec driving.
+        </div>
+    </footer>
+
+</body>
+</html>
