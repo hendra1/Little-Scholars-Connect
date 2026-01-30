@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spec Driven Development Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.mjs';
+        
+        try {
+            mermaid.initialize({ 
+                startOnLoad: true,
+                securityLevel: 'loose',
+                theme: 'base',
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true,
+                    curve: 'basis',
+                    padding: 40,
+                    rankSpacing: 60,
+                    nodeSpacing: 40
+                },
+                themeVariables: {
+                    primaryColor: '#ffffff',
+                    primaryTextColor: '#0f172a',
+                    primaryBorderColor: '#94a3b8',
+                    lineColor: '#64748B',
+                    secondaryColor: '#F8FAFC',
+                    tertiaryColor: '#fff',
+                    fontFamily: 'Inter'
+                }
+            });
+        } catch (e) {
+            console.error("Mermaid initialization failed:", e);
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Custom Node Styling for Mermaid */
+        .actor-node rect { fill: #EEF2FF !important; stroke: #6366F1 !important; stroke-width: 2px !important; }
+        .agent-node rect { fill: #F0FDFA !important; stroke: #0D9488 !important; stroke-width: 2px !important; }
+        .artifact-node rect { fill: #FFF7ED !important; stroke: #EA580C !important; stroke-width: 1px !important; stroke-dasharray: 5 5; }
+        .kb-node rect { fill: #F1F5F9 !important; stroke: #475569 !important; stroke-width: 2px !important; }
+
+        /* Gradients */
+        .orch-gradient { background: linear-gradient(135deg, #0F172A 0%, #334155 100%); }
+        .spec-gradient { background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%); }
+        .clarify-gradient { background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); }
+        .plan-gradient { background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%); }
+        .checklist-gradient { background: linear-gradient(135deg, #059669 0%, #34D399 100%); }
+        .analyze-gradient { background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%); }
+        .impl-gradient { background: linear-gradient(135deg, #DC2626 0%, #F87171 100%); }
+        .sync-gradient { background: linear-gradient(135deg, #06B6D4 0%, #22D3EE 100%); }
+        .constitution-gradient { background: linear-gradient(135deg, #475569 0%, #64748B 100%); }
+        
+        .connector-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #E2E8F0;
+            z-index: -1;
+        }
+        
+        .actor-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+
+        .pulse-ring {
+            box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+            animation: pulse-orange 2s infinite;
+        }
+        
+        @keyframes pulse-orange {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-slate-900 text-white p-2 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">Spec Driven Development Ecosystem</h1>
+                    <p class="text-xs text-slate-500 uppercase tracking-wider">Specify &rarr; Clarify &rarr; Build &rarr; Sync</p>
+                </div>
+            </div>
+            
+            <div class="flex space-x-2 bg-slate-50 p-2 rounded-lg border border-slate-100">
+                <div class="flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold">PO</div>
+                <div class="flex items-center px-3 py-1 rounded-full bg-gray-200 text-gray-800 text-xs font-bold">DEV</div>
+                <div class="flex items-center px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold ring-2 ring-indigo-500 ring-offset-1">8 AGENTS</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+
+        <!-- Why SDD for Enterprise? -->
+        <div class="mb-16 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 shadow-xl text-white">
+            <div class="flex items-center mb-6">
+                <div class="bg-indigo-500 p-2 rounded-lg mr-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold">Why Spec-Driven Development (SDD) for Enterprise?</h2>
+                    <p class="text-slate-400 text-sm">Transforming the "Code-First" chaos into an "Intent-First" discipline.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Benefit 1 -->
+                <div class="bg-white/10 p-5 rounded-xl border border-white/10 hover:bg-white/15 transition-colors">
+                    <h3 class="font-bold text-indigo-300 mb-2 flex items-center">
+                        <span class="mr-2">🏛️</span> Governance at Scale
+                    </h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        The <strong>Constitution Agent</strong> centralizes knowledge. It ensures every spec and implementation complies with security, auth, and database standards before coding starts.
+                    </p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="bg-white/10 p-5 rounded-xl border border-white/10 hover:bg-white/15 transition-colors">
+                    <h3 class="font-bold text-emerald-300 mb-2 flex items-center">
+                        <span class="mr-2">📖</span> Living Documentation
+                    </h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Docs usually rot instantly. In SDD, the Spec <strong>generates</strong> the code. If code changes, the <strong>Sync Agent</strong> updates the spec. Zero gap between intent and reality.
+                    </p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="bg-white/10 p-5 rounded-xl border border-white/10 hover:bg-white/15 transition-colors">
+                    <h3 class="font-bold text-amber-300 mb-2 flex items-center">
+                        <span class="mr-2">⚡</span> Systematic Velocity
+                    </h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Pivoting requirements usually means costly rewrites. In SDD, you update the Spec and <strong>regenerate</strong>. It turns chaotic pivots into managed, systematic evolution.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 0: Knowledge Foundation -->
+         <div class="relative mb-20">
+            <div class="connector-line"></div>
+            
+            <div class="text-center mb-8">
+                <span class="bg-slate-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Stage 0: Knowledge Governance</span>
+            </div>
+
+            <div class="bg-slate-100 p-6 rounded-2xl shadow-inner border border-slate-200 relative max-w-3xl mx-auto">
+                <div class="actor-badge bg-slate-700 text-slate-100 border border-slate-600">Constitution Agent</div>
+                <div class="flex items-start">
+                    <div class="constitution-gradient w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg mr-4 flex-shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-bold text-slate-800">The Knowledge Steward</h3>
+                        <p class="text-sm text-slate-600 mt-1 mb-2">Continuously ingests & vectors organizational knowledge.</p>
+                        <div class="flex flex-wrap gap-2 text-[10px] uppercase font-bold text-slate-500">
+                            <span class="bg-white px-2 py-1 rounded border">Security Policies</span>
+                            <span class="bg-white px-2 py-1 rounded border">API Standards</span>
+                            <span class="bg-white px-2 py-1 rounded border">Legacy Code</span>
+                            <span class="bg-white px-2 py-1 rounded border">Architecture Docs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 1: Orchestration & Specification (REVISED) -->
+        <div class="relative mb-20">
+            <div class="connector-line"></div>
+            
+            <div class="text-center mb-8">
+                <span class="bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Stage 1: Orchestration & Specification</span>
+            </div>
+
+            <!-- Specification Development Agent (Orchestrator) -->
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-2xl border border-slate-700 relative mb-12 max-w-4xl mx-auto">
+                <div class="actor-badge bg-indigo-500 text-white border border-indigo-400">Spec Dev Agent</div>
+                <div class="flex items-start">
+                    <div class="orch-gradient w-14 h-14 rounded-xl flex items-center justify-center text-white shadow-lg mr-5 flex-shrink-0 border border-slate-600">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">Specification Development Agent</h3>
+                        <p class="text-xs text-indigo-300 uppercase font-bold tracking-widest mb-2">(aka The Orchestrator)</p>
+                        <p class="text-slate-400 mt-2 mb-4">
+                            The central platform interface. It ingests <strong>Jira tickets</strong> OR <strong>Direct User Prompts</strong> and coordinates the entire swarm.
+                        </p>
+                        <div class="flex gap-4">
+                            <div class="flex items-center space-x-2 text-xs font-mono bg-slate-800 p-2 rounded border border-slate-700">
+                                <span class="text-green-400">Input 1:</span>
+                                <span class="text-slate-300">Jira Ticket #101</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-xs font-mono bg-slate-800 p-2 rounded border border-slate-700">
+                                <span class="text-blue-400">Input 2:</span>
+                                <span class="text-slate-300">Direct Chat Prompt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch max-w-5xl mx-auto">
+                <!-- Specification Agent -->
+                <div class="bg-white p-6 rounded-2xl shadow-xl border border-pink-100 relative pt-10 h-full">
+                    <div class="actor-badge bg-pink-100 text-pink-700 border border-pink-200">Specification Agent</div>
+                    <div class="absolute -top-6 left-8 spec-gradient w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">1. Draft Specification</h3>
+                    <p class="text-sm text-slate-600 mt-2">
+                        Focuses strictly on <strong>WHAT</strong> and <strong>WHY</strong>.
+                    </p>
+                    <ul class="mt-4 space-y-2 text-xs text-slate-500">
+                        <li class="flex items-start"><span class="mr-2">📝</span> Uses <code>/speckit.specify</code> template.</li>
+                        <li class="flex items-start"><span class="mr-2">🚫</span> Avoids "HOW" (Implementation details).</li>
+                        <li class="flex items-start"><span class="mr-2">🤖</span> Prevents hallucination by keeping it abstract.</li>
+                    </ul>
+                </div>
+
+                <!-- Clarify Agent -->
+                <div class="bg-amber-50 p-6 rounded-2xl shadow-xl border border-amber-200 relative pt-10 h-full">
+                    <div class="actor-badge bg-amber-100 text-amber-800 border border-amber-300">Clarify Agent</div>
+                    <div class="absolute -top-6 left-8 clarify-gradient w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg pulse-ring">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-amber-900">2. Verify & Clarify</h3>
+                    <p class="text-sm text-amber-800 mt-2 leading-relaxed">
+                        Called by Spec Dev Agent to validate the Draft Spec.
+                    </p>
+                    
+                    <ul class="mt-4 space-y-2 text-xs text-amber-900">
+                        <li class="flex items-start"><span class="mr-2">🔎</span> Checks for ambiguities.</li>
+                        <li class="flex items-start"><span class="mr-2">💬</span> <strong>Action:</strong> Asks PO clarifying questions via Spec Dev Agent.</li>
+                        <li class="flex items-start"><span class="mr-2">✅</span> <strong>Outcome:</strong> Validated Spec ready for Planning.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Diagram -->
+        <div class="mt-20 border-t border-slate-200 pt-12">
+            <h3 class="text-center text-slate-400 font-bold uppercase tracking-widest text-sm mb-8">Technical Process Map</h3>
+            <div class="bg-white p-8 rounded-xl shadow-inner border border-slate-100">
+                <div class="mermaid flex justify-center">
+graph TD
+    %% Styling Classes
+    classDef actor fill:#EEF2FF,stroke:#6366F1,stroke-width:2px,rx:5,ry:5
+    classDef agent fill:#F0FDFA,stroke:#0D9488,stroke-width:2px,rx:5,ry:5
+    classDef artifact fill:#FFF7ED,stroke:#EA580C,stroke-width:2px,stroke-dasharray: 5 5,rx:0,ry:0
+    classDef kb fill:#F1F5F9,stroke:#475569,stroke-width:2px,rx:5,ry:5
+
+    %% -------------------------------------------------------------------------
+    %% TIER 1: The Input (Top of the Mountain)
+    %% -------------------------------------------------------------------------
+    subgraph Tier1 [Tier 1: Input & Trigger]
+        direction TB
+        PO((Product Owner)):::actor
+        Ticket[Jira Ticket / Chat]:::artifact
+        Docs[Docs & Repo]:::artifact
+    end
+
+    %% -------------------------------------------------------------------------
+    %% TIER 0: Knowledge Base (The Sidecar)
+    %% -------------------------------------------------------------------------
+    subgraph Tier0 [Tier 0: Knowledge Governance]
+        KB[Constitution Agent]:::kb
+    end
+
+    %% -------------------------------------------------------------------------
+    %% TIER 2: Preparation Phase (Thinking)
+    %% -------------------------------------------------------------------------
+    subgraph Tier2 [Tier 2: Preparation Phase]
+        direction TB
+        Orch[Spec Dev Agent]:::agent
+        Spec[Spec Agent]:::agent
+        Clarify[Clarify Agent]:::agent
+        Plan[Plan Agent]:::agent
+        Analyze[Analyze Agent]:::agent
+    end
+
+    %% -------------------------------------------------------------------------
+    %% TIER 3: Human Gatekeeper (Approval)
+    %% -------------------------------------------------------------------------
+    subgraph Tier3 [Tier 3: Approval Gate]
+        Dev((Developer)):::actor
+    end
+
+    %% -------------------------------------------------------------------------
+    %% TIER 4: Execution Phase (Doing)
+    %% -------------------------------------------------------------------------
+    subgraph Tier4 [Tier 4: Execution Phase]
+        direction TB
+        Impl[Impl Agent]:::agent
+        PR[GitHub PR]:::artifact
+        Sync[Sync Review Agent]:::agent
+    end
+
+    %% =========================================================================
+    %% CONNECTIVITY (STRICT WATERFALL)
+    %% =========================================================================
+
+    %% Input Flow
+    PO --> Ticket
+    Docs --> KB
+    Ticket --> Orch
+
+    %% Prep Flow (Linear)
+    Orch --> Spec
+    Spec --> Clarify
+    Clarify --> Plan
+    Plan --> Analyze
+    
+    %% Handover to Human
+    Analyze --> Dev
+
+    %% Execution Flow
+    Dev -->|Approve| Impl
+    Impl --> PR
+    PR -->|Review| Dev
+    Dev -->|Push| Sync
+
+    %% Knowledge Injections (Subtle)
+    KB -.-> Spec
+    KB -.-> Plan
+    KB -.-> Analyze
+    KB -.-> Sync
+
+    %% Feedback Loops (Routed to edges)
+    Clarify -.->|Queries| PO
+    Sync -.->|Drift Update| Spec
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
