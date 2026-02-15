@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Bright Journey: Platform Proposal</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #F97316 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 28px;
+            top: 24px;
+            bottom: 0;
+            width: 3px;
+            background: #E2E8F0;
+            z-index: 0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        @media (min-width: 1024px) {
+            .chart-container {
+                height: 450px;
+            }
+        }
+        
+        section { scroll-margin-top: 80px; }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .phone-mockup {
+            border: 8px solid #1e293b;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+            aspect-ratio: 9/19;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin: 0 auto;
+            max-width: 320px;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .phone-mockup {
+                border-width: 12px;
+                border-radius: 40px;
+            }
+        }
+        
+        /* Risk Matrix Table */
+        .risk-table th {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            background-color: #f1f5f9;
+            padding: 1rem;
+        }
+        .risk-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .risk-table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-orange-100 selection:text-orange-900 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-xl z-50 border-b border-slate-200/60 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 h-16 md:h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3 font-bold text-lg md:text-2xl tracking-tight text-slate-900">
+                <span class="bg-gradient-to-br from-orange-500 to-pink-500 text-white p-2 md:p-2.5 rounded-xl shadow-lg shadow-orange-500/20">
+                    <i data-lucide="sprout" class="w-5 h-5 md:w-6 md:h-6"></i>
+                </span>
+                <span class="hidden md:inline">Little Bright Journey</span>
+                <span class="md:hidden">LBJ Platform</span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center bg-slate-100/50 p-1.5 rounded-full border border-slate-200/50">
+                <a href="#features" class="px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-white hover:text-orange-600 hover:shadow-md transition-all">Features & Value</a>
+                <a href="#simulation" class="px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-white hover:text-orange-600 hover:shadow-md transition-all">Simulation</a>
+                <a href="#roadmap" class="px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-white hover:text-orange-600 hover:shadow-md transition-all">Roadmap</a>
+                 <a href="#risks" class="px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-white hover:text-orange-600 hover:shadow-md transition-all">Risks</a>
+                <a href="#investment" class="px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-white hover:text-orange-600 hover:shadow-md transition-all">Costs</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="lg:hidden text-slate-600 p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-100 p-4 absolute w-full top-16 left-0 shadow-lg flex flex-col gap-4 z-40">
+            <a href="#features" class="block font-bold text-slate-600 py-2">Value & Features</a>
+            <a href="#simulation" class="block font-bold text-slate-600 py-2">Simulation</a>
+            <a href="#roadmap" class="block font-bold text-slate-600 py-2">Roadmap</a>
+            <a href="#risks" class="block font-bold text-slate-600 py-2">Risk Matrix</a>
+            <a href="#investment" class="block font-bold text-slate-600 py-2">Costs</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden px-4 md:px-8">
+        <div class="max-w-7xl mx-auto relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 md:gap-3 px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-white border border-slate-200 shadow-sm text-slate-600 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 md:mb-10 transform hover:scale-105 transition-transform cursor-default">
+                <span class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                Proposal 2026
+            </div>
+            
+            <h1 class="text-4xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold leading-tight mb-6 md:mb-10 text-slate-900 tracking-tight">
+                Child Development <br>
+                <span class="gradient-text">Tracking Platform.</span>
+            </h1>
+            
+            <p class="text-lg md:text-2xl lg:text-3xl text-slate-600 mb-10 md:mb-16 leading-relaxed max-w-4xl mx-auto font-medium">
+                A digital ecosystem bridging classroom and home. <br class="hidden md:block" />
+                Using <strong>AI Photo Analysis</strong> to automate reporting and enrich parenting.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8">
+                <a href="#simulation" class="bg-slate-900 text-white px-8 py-4 md:px-10 md:py-5 rounded-full text-base md:text-lg font-bold hover:bg-slate-800 transition-all shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i> App Simulation
+                </a>
+                <a href="#features" class="bg-white text-slate-900 border border-slate-200 px-8 py-4 md:px-10 md:py-5 rounded-full text-base md:text-lg font-bold hover:border-orange-200 hover:text-orange-600 transition-all shadow-sm hover:shadow-md text-center">
+                    Explore Value
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Value & Features Section -->
+    <section id="features" class="py-20 md:py-32 bg-white relative px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Value Proposition Header -->
+            <div class="max-w-4xl mx-auto text-center mb-16 md:mb-24">
+                <span class="text-blue-600 font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">1.2 Strategic Value Proposition</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Value Vectors</h2>
+                <p class="text-lg md:text-2xl text-slate-500 font-medium">Impact for every stakeholder.</p>
+            </div>
+
+            <!-- Value Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 mb-20 md:mb-32">
+                <!-- For Teachers -->
+                <div class="bg-blue-50 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-blue-100 hover:shadow-lg transition-all group">
+                    <div class="bg-blue-500 text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+                        <i data-lucide="zap" class="w-6 h-6 md:w-7 md:h-7"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-3 md:mb-4">For Teachers</h3>
+                    <p class="text-xs md:text-sm font-bold text-blue-600 uppercase tracking-wide mb-4">Efficiency & Accuracy</p>
+                    <p class="text-base md:text-lg text-slate-700 leading-relaxed">
+                        By using AI to generate reports from uploaded <strong>photos</strong>, the system reduces administrative time by an estimated <strong>40-60%</strong>, allowing educators to focus on student interaction rather than paperwork.
+                    </p>
+                </div>
+
+                <!-- For Parents -->
+                <div class="bg-orange-50 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-orange-100 hover:shadow-lg transition-all group">
+                    <div class="bg-orange-500 text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+                        <i data-lucide="heart" class="w-6 h-6 md:w-7 md:h-7"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-3 md:mb-4">For Parents</h3>
+                    <p class="text-xs md:text-sm font-bold text-orange-600 uppercase tracking-wide mb-4">Engagement & Reassurance</p>
+                    <p class="text-base md:text-lg text-slate-700 leading-relaxed">
+                        The "Instagram-style" gallery provides a familiar, warm UX. The AI Chatbot offers a 24/7 consultant for developmental questions, grounded in <strong>WHO standards</strong>.
+                    </p>
+                </div>
+
+                <!-- For Institution -->
+                <div class="bg-slate-50 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 hover:shadow-lg transition-all group md:col-span-2 lg:col-span-1">
+                    <div class="bg-slate-800 text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+                        <i data-lucide="building-2" class="w-6 h-6 md:w-7 md:h-7"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-3 md:mb-4">For Institution</h3>
+                    <p class="text-xs md:text-sm font-bold text-slate-600 uppercase tracking-wide mb-4">Data & Compliance</p>
+                    <p class="text-base md:text-lg text-slate-700 leading-relaxed">
+                        Builds a <strong>longitudinal dataset</strong> of student progress, enabling data-driven curriculum adjustments and ensuring compliance with national reporting standards.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Detailed Features Breakdown -->
+            <div class="max-w-4xl mb-12 px-2">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 md:mb-6">Feature Breakdown</h2>
+                <p class="text-lg md:text-xl text-slate-500">Core capabilities for MVP.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 xl:gap-20">
+                
+                <!-- Teacher App -->
+                <div class="space-y-8">
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-sm h-full hover:border-blue-300 transition-colors">
+                        <div class="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+                            <div class="bg-blue-100 text-blue-600 p-4 md:p-5 rounded-3xl">
+                                <i data-lucide="pen-tool" class="w-8 h-8 md:w-10 md:h-10"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-4xl font-bold text-slate-900">Teacher App</h3>
+                        </div>
+                        
+                        <div class="space-y-8 md:space-y-10">
+                            <!-- AI Photo Feature -->
+                            <div class="border-l-4 border-blue-500 pl-6 md:pl-8">
+                                <h4 class="text-xl md:text-2xl font-bold text-slate-900 mb-2">AI Photo Activity Analysis</h4>
+                                <p class="text-base md:text-lg text-slate-600 mb-3">
+                                    Teachers simply upload <strong>photos</strong> of an activity (e.g., child stacking blocks). The AI analyzes the visual context and <strong>auto-drafts a developmental observation</strong> for review.
+                                </p>
+                                <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Automated Reporting</span>
+                            </div>
+
+                            <div class="border-l-4 border-slate-200 pl-6 md:pl-8">
+                                <h4 class="text-xl md:text-2xl font-bold text-slate-900 mb-2">Voice-to-Text Notes</h4>
+                                <p class="text-base md:text-lg text-slate-600">
+                                    Dictate observations verbally ("Ian used his left hand...") and the app converts it to structured text.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parent App -->
+                <div class="space-y-8">
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-sm h-full hover:border-orange-300 transition-colors">
+                        <div class="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+                            <div class="bg-orange-100 text-orange-600 p-4 md:p-5 rounded-3xl">
+                                <i data-lucide="heart" class="w-8 h-8 md:w-10 md:h-10"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-4xl font-bold text-slate-900">Parent App</h3>
+                        </div>
+                        
+                        <div class="space-y-8 md:space-y-10">
+                            <!-- Enhanced Chat Feature -->
+                            <div class="border-l-4 border-orange-500 pl-6 md:pl-8">
+                                <h4 class="text-xl md:text-2xl font-bold text-slate-900 mb-2">Smart Report Assistant</h4>
+                                <p class="text-base md:text-lg text-slate-600 mb-3">
+                                    Parents can ask: <em>"Show me Ian's progress report from last week"</em> or access the <strong>Manual Menu</strong> to read curriculum details directly from trusted sources.
+                                </p>
+                                <span class="bg-orange-50 text-orange-700 text-xs font-bold px-3 py-1 rounded-full">Grounded on Trusted Data</span>
+                            </div>
+                            
+                            <div class="border-l-4 border-slate-200 pl-6 md:pl-8">
+                                <h4 class="text-xl md:text-2xl font-bold text-slate-900 mb-2">Moments Gallery</h4>
+                                <p class="text-base md:text-lg text-slate-600">
+                                    A private, secure feed of photos/images tagged with learning outcomes (Sensory, Motor, Cognitive).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Simulation -->
+    <section id="simulation" class="py-24 md:py-32 bg-slate-50 border-t border-slate-200 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 md:mb-20">
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-4 md:mb-6">App Simulation</h2>
+                <p class="text-lg md:text-2xl text-slate-500">Visualizing the experience.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-32">
+                
+                <!-- Screen 1: Feed -->
+                <div class="w-full flex flex-col items-center">
+                    <div class="phone-mockup">
+                        <div class="h-full bg-slate-50 flex flex-col">
+                            <div class="bg-white p-5 pt-8 flex justify-between items-center border-b border-slate-100">
+                                <span class="font-bold text-orange-500 text-xl">LBJ</span>
+                                <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 font-bold flex items-center justify-center border-2 border-white shadow-sm">I</div>
+                            </div>
+                            <div class="p-4 space-y-4 overflow-hidden">
+                                <!-- Card -->
+                                <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-100">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-xl">🍲</div>
+                                        <div>
+                                            <div class="font-bold text-slate-800">Flower Soup</div>
+                                            <div class="text-xs text-slate-400">Today • 10:30 AM</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full h-32 md:h-40 bg-slate-100 rounded-2xl mb-3 flex items-center justify-center text-slate-300 relative overflow-hidden">
+                                        <!-- Photo Simulation -->
+                                        <div class="absolute inset-0 bg-slate-200 flex items-center justify-center">
+                                            <i data-lucide="image" class="w-10 h-10 md:w-12 md:h-12 text-slate-400"></i>
+                                        </div>
+                                        <div class="absolute bottom-2 right-2 bg-black/50 text-white text-[10px] px-2 py-1 rounded-full backdrop-blur-md">Photo Analyzed</div>
+                                    </div>
+                                    <p class="text-xs md:text-sm text-slate-600 mb-3 line-clamp-2">Ian showed great coordination using the ladle today...</p>
+                                    <div class="flex gap-2">
+                                        <span class="px-3 py-1 bg-purple-50 text-purple-600 text-[10px] md:text-xs font-bold rounded-full">Sensory</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center font-bold text-slate-400 text-lg">Activity Feed (Photos)</div>
+                </div>
+
+                <!-- Screen 2: AI Chat -->
+                <div class="w-full flex flex-col items-center">
+                    <div class="phone-mockup">
+                        <div class="h-full bg-white flex flex-col">
+                            <div class="bg-indigo-600 p-5 pt-8 text-white flex gap-4 items-center shadow-md">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm"><i data-lucide="sparkles" class="w-5 h-5"></i></div>
+                                <div>
+                                    <div class="font-bold">LBJ Assistant</div>
+                                    <div class="text-xs opacity-80">Grounded AI</div>
+                                </div>
+                            </div>
+                            <div class="flex-1 p-4 bg-slate-50 space-y-4 text-xs md:text-sm overflow-hidden relative">
+                                <div class="flex justify-end">
+                                    <div class="bg-indigo-600 text-white p-4 rounded-2xl rounded-tr-sm max-w-[85%] shadow-sm">
+                                        Show me Ian's report for "Flower Soup".
+                                    </div>
+                                </div>
+                                <div class="flex justify-start">
+                                    <div class="bg-white border border-slate-200 text-slate-700 p-4 rounded-2xl rounded-tl-sm max-w-[90%] shadow-sm space-y-2">
+                                        <p class="font-bold text-indigo-600 mb-1">Report: Flower Soup</p>
+                                        <p>Ian demonstrated <strong>well-balanced coordination</strong>.</p>
+                                        <div class="mt-2 pt-2 border-t border-slate-100 flex gap-2 flex-wrap">
+                                            <button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold text-slate-600 hover:bg-slate-200 transition">View PDF</button>
+                                            <button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold text-slate-600 hover:bg-slate-200 transition">Manual Menu</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border-t border-slate-100 bg-white">
+                                <div class="w-full h-12 bg-slate-100 rounded-full flex items-center px-4 text-slate-400 text-sm">Ask a question...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center font-bold text-slate-400 text-lg">Interactive AI</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Roadmap Section -->
+    <section id="roadmap" class="py-24 md:py-32 bg-white relative overflow-hidden px-4">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 md:mb-24">
+                 <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-4 md:mb-6">12-Week Agile Roadmap</h2>
+                 <p class="text-lg md:text-2xl text-slate-500 font-medium">Accelerated development cycle to reach MVP.</p>
+            </div>
+            
+            <div class="overflow-x-auto bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl">
+                <table class="w-full text-left timeline-table min-w-[800px]">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="w-1/6 pl-8">Phase / Duration</th>
+                            <th class="w-1/6">Weeks</th>
+                            <th class="w-1/3">Core Focus</th>
+                            <th class="w-1/3 pr-8">Key Deliverable</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <!-- Phase 1 -->
+                        <tr class="group hover:bg-blue-50/30 transition-colors">
+                            <td class="pl-8 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phase 1</span>
+                                <div class="font-bold text-slate-900 mt-2 text-lg">Discovery & Design</div>
+                                <div class="text-sm text-slate-500 mt-1">2 Weeks</div>
+                            </td>
+                            <td class="py-6 font-mono text-slate-600 font-bold text-lg">1-2</td>
+                            <td class="py-6 pr-6">
+                                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>Finalizing report schema & content corpus.</li>
+                                    <li>High-Fidelity UI/UX Design (Figma).</li>
+                                    <li>Setup React Native repo & CI/CD.</li>
+                                </ul>
+                            </td>
+                            <td class="pr-8 py-6">
+                                <div class="flex items-start gap-3">
+                                    <div class="bg-blue-500 p-2 rounded-lg text-white shrink-0"><i data-lucide="figma" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-sm">Clickable Prototype</div>
+                                        <div class="text-xs text-slate-500 mt-1">Confirming "Warm" aesthetic and user flows.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Phase 2 -->
+                        <tr class="group hover:bg-orange-50/30 transition-colors">
+                            <td class="pl-8 py-6">
+                                <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phase 2</span>
+                                <div class="font-bold text-slate-900 mt-2 text-lg">Foundation & Infra</div>
+                                <div class="text-sm text-slate-500 mt-1">2 Weeks</div>
+                            </td>
+                            <td class="py-6 font-mono text-slate-600 font-bold text-lg">3-4</td>
+                            <td class="py-6 pr-6">
+                                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>Setting up Node.js (NestJS) backend.</li>
+                                    <li>Configuring Cloud (GCP/AWS Jakarta).</li>
+                                    <li>Establishing Secure API with OAuth2.</li>
+                                </ul>
+                            </td>
+                            <td class="pr-8 py-6">
+                                <div class="flex items-start gap-3">
+                                    <div class="bg-orange-500 p-2 rounded-lg text-white shrink-0"><i data-lucide="server" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-sm">Secure API & DB</div>
+                                        <div class="text-xs text-slate-500 mt-1">Backend ready for data storage and auth.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Phase 3 -->
+                        <tr class="group hover:bg-purple-50/30 transition-colors">
+                            <td class="pl-8 py-6">
+                                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phase 3</span>
+                                <div class="font-bold text-slate-900 mt-2 text-lg">Core Mobile Dev</div>
+                                <div class="text-sm text-slate-500 mt-1">4 Weeks</div>
+                            </td>
+                            <td class="py-6 font-mono text-slate-600 font-bold text-lg">5-8</td>
+                            <td class="py-6 pr-6">
+                                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>Building Teacher & Parent app shells.</li>
+                                    <li>"IG-style" Feed with FlashList.</li>
+                                    <li><code>react-native-vision-camera</code> integration.</li>
+                                </ul>
+                            </td>
+                            <td class="pr-8 py-6">
+                                <div class="flex items-start gap-3">
+                                    <div class="bg-purple-500 p-2 rounded-lg text-white shrink-0"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-sm">Alpha Build</div>
+                                        <div class="text-xs text-slate-500 mt-1">Functional media sharing and feed playback.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Phase 4 -->
+                        <tr class="group hover:bg-pink-50/30 transition-colors">
+                            <td class="pl-8 py-6">
+                                <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phase 4</span>
+                                <div class="font-bold text-slate-900 mt-2 text-lg">AI & RAG Integration</div>
+                                <div class="text-sm text-slate-500 mt-1">2 Weeks</div>
+                            </td>
+                            <td class="py-6 font-mono text-slate-600 font-bold text-lg">9-10</td>
+                            <td class="py-6 pr-6">
+                                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>Integrating GPT-4o/Gemini Vision API.</li>
+                                    <li>Building RAG vector DB with WHO data.</li>
+                                    <li>Prompt engineering for "Impact" statements.</li>
+                                </ul>
+                            </td>
+                            <td class="pr-8 py-6">
+                                <div class="flex items-start gap-3">
+                                    <div class="bg-pink-500 p-2 rounded-lg text-white shrink-0"><i data-lucide="bot" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-sm">Beta Build (AI)</div>
+                                        <div class="text-xs text-slate-500 mt-1">Generating accurate, automated reports.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Phase 5 -->
+                        <tr class="group hover:bg-green-50/30 transition-colors">
+                            <td class="pl-8 py-6">
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phase 5</span>
+                                <div class="font-bold text-slate-900 mt-2 text-lg">QA & Security</div>
+                                <div class="text-sm text-slate-500 mt-1">2 Weeks</div>
+                            </td>
+                            <td class="py-6 font-mono text-slate-600 font-bold text-lg">11-12</td>
+                            <td class="py-6 pr-6">
+                                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>Penetration & Load testing.</li>
+                                    <li>DPIA execution & PSE registration.</li>
+                                    <li>Critical bug fixes & polish.</li>
+                                </ul>
+                            </td>
+                            <td class="pr-8 py-6">
+                                <div class="flex items-start gap-3">
+                                    <div class="bg-green-500 p-2 rounded-lg text-white shrink-0"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-sm">Security Audit</div>
+                                        <div class="text-xs text-slate-500 mt-1">Compliance certification ready for launch.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Phase 6 -->
+                        <tr class="group hover:bg-slate-100/50 transition-colors border-t-2 border-slate-200">
+                            <td class="pl-8 py-6">
+                                <span class="bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Phase 6</span>
+                                <div class="font-bold text-slate-900 mt-2 text-lg">Deployment</div>
+                                <div class="text-sm text-slate-500 mt-1">1 Week+</div>
+                            </td>
+                            <td class="py-6 font-mono text-slate-600 font-bold text-lg">13+</td>
+                            <td class="py-6 pr-6">
+                                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>App Store & Play Store submission.</li>
+                                    <li>Teacher training workshops.</li>
+                                    <li>Pilot launch.</li>
+                                </ul>
+                            </td>
+                            <td class="pr-8 py-6">
+                                <div class="flex items-start gap-3">
+                                    <div class="bg-slate-800 p-2 rounded-lg text-white shrink-0"><i data-lucide="rocket" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-sm">Pilot Launch</div>
+                                        <div class="text-xs text-slate-500 mt-1">Public/Private release.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Risk Matrix Section -->
+    <section id="risks" class="py-24 md:py-32 bg-slate-50 border-t border-slate-200 px-4">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 md:mb-24">
+                 <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-4 md:mb-6">Risk Analysis & Mitigation</h2>
+                 <p class="text-lg md:text-2xl text-slate-500 font-medium">Proactive strategies for project stability.</p>
+            </div>
+            
+            <div class="overflow-x-auto bg-white rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-xl">
+                <table class="w-full text-left risk-table min-w-[800px]">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="w-1/4 pl-8">Risk Category</th>
+                            <th class="w-1/6">Probability</th>
+                            <th class="w-1/6">Impact</th>
+                            <th class="w-5/12 pr-8">Mitigation Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr class="hover:bg-red-50/30 transition-colors">
+                            <td class="pl-8 py-4 font-bold text-slate-900">Data Privacy (Legal)</td>
+                            <td class="py-4"><span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">Medium</span></td>
+                            <td class="py-4"><span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">High</span></td>
+                            <td class="pr-8 py-4 text-sm text-slate-600">
+                                Strict adherence to PDP Law; Data localization in Jakarta; Mandatory parental consent flows; Encryption at rest/transit.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-red-50/30 transition-colors">
+                            <td class="pl-8 py-4 font-bold text-slate-900">AI Hallucination</td>
+                            <td class="py-4"><span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">High</span></td>
+                            <td class="py-4"><span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">High</span></td>
+                            <td class="pr-8 py-4 text-sm text-slate-600">
+                                <strong>RAG Architecture:</strong> Ground AI in WHO/CDC data. <strong>Human-in-the-Loop:</strong> Teachers must "Approve" AI drafts before they are sent to parents.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-orange-50/30 transition-colors">
+                            <td class="pl-8 py-4 font-bold text-slate-900">App Performance (Media)</td>
+                            <td class="py-4"><span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">High</span></td>
+                            <td class="py-4"><span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">Medium</span></td>
+                            <td class="pr-8 py-4 text-sm text-slate-600">
+                                Implement optimized image loading/caching for varying <strong>Indonesian</strong> network speeds. Use <strong>FlashList</strong> for smooth UI performance on low-end devices.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-yellow-50/30 transition-colors">
+                            <td class="pl-8 py-4 font-bold text-slate-900">Cost Overrun</td>
+                            <td class="py-4"><span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">Medium</span></td>
+                            <td class="py-4"><span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">Medium</span></td>
+                            <td class="pr-8 py-4 text-sm text-slate-600">
+                                Use local object storage (<strong>Biznet Gio</strong>) for cold archiving. Implement strictly defined retention policies (e.g., delete raw media after 1 year).
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment & Breakdown Section -->
+    <section id="investment" class="py-24 md:py-32 bg-white border-t border-slate-200 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 md:mb-24">
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Investment Breakdown</h2>
+                <p class="text-lg md:text-2xl text-slate-500 font-medium">Rate: <strong>Rp 250.000/hr</strong> (Optimized Agency Rate).</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-24">
+                <!-- Visual Chart -->
+                <div class="lg:col-span-4 bg-slate-50 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] border border-slate-200 h-fit sticky top-28 shadow-xl">
+                    <h3 class="font-bold text-xl md:text-2xl text-slate-900 mb-10 text-center">Total Project Fee</h3>
+                    <div class="chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    
+                    <div class="mt-12 pt-10 border-t border-slate-200">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-slate-500 text-sm font-bold uppercase tracking-wider">Grand Total</span>
+                            <span class="text-2xl md:text-4xl font-extrabold text-slate-900">Rp 122.5 Juta</span>
+                        </div>
+                        <div class="text-base text-slate-400 text-right font-medium">One-Time Payment</div>
+                    </div>
+                    
+                    <a href="#detailed-breakdown" class="block w-full mt-10 bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-slate-800 transition-all text-center shadow-xl hover:shadow-2xl hover:-translate-y-1 text-lg">
+                        View Detailed Table ↓
+                    </a>
+                </div>
+
+                <!-- Detailed Table -->
+                <div class="lg:col-span-8" id="detailed-breakdown">
+                    
+                    <!-- Section 1: Development -->
+                    <div class="overflow-x-auto rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 shadow-sm bg-white mb-16">
+                        <div class="p-8 md:p-10 bg-slate-50 border-b border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl text-slate-900">1. Development</h3>
+                                <p class="text-sm md:text-base text-slate-500 mt-2 font-medium">Design, Engineering, AI Logic.</p>
+                            </div>
+                            <span class="bg-white px-4 py-2 rounded-full border border-slate-200 text-xs md:text-sm font-mono font-bold shadow-sm text-slate-600">Rate: Rp 250k/h</span>
+                        </div>
+                        <table class="w-full text-left bg-white min-w-[600px]">
+                            <thead>
+                                <tr class="border-b border-slate-200 bg-white">
+                                    <th class="w-1/2 py-6 pl-10 text-sm tracking-widest text-slate-400 font-extrabold uppercase">Item</th>
+                                    <th class="text-right py-6 text-sm tracking-widest text-slate-400 font-extrabold uppercase">Hours</th>
+                                    <th class="text-right py-6 pr-10 text-sm tracking-widest text-slate-400 font-extrabold uppercase">Cost (IDR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="py-6 pl-10 font-bold text-slate-900 text-base md:text-lg">UI/UX Design</td>
+                                    <td class="text-right font-mono text-slate-600 text-base md:text-lg py-6">60h</td>
+                                    <td class="text-right font-bold text-slate-900 text-lg md:text-xl py-6 pr-10">15.000.000</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="py-6 pl-10 font-bold text-slate-900 text-base md:text-lg">Mobile Apps (iOS + Android)</td>
+                                    <td class="text-right font-mono text-slate-600 text-base md:text-lg py-6">160h</td>
+                                    <td class="text-right font-bold text-slate-900 text-lg md:text-xl py-6 pr-10">40.000.000</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="py-6 pl-10 font-bold text-slate-900 text-base md:text-lg">Backend & API</td>
+                                    <td class="text-right font-mono text-slate-600 text-base md:text-lg py-6">120h</td>
+                                    <td class="text-right font-bold text-slate-900 text-lg md:text-xl py-6 pr-10">30.000.000</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="py-6 pl-10 font-bold text-slate-900 text-base md:text-lg">AI Photo & Chat Integration</td>
+                                    <td class="text-right font-mono text-slate-600 text-base md:text-lg py-6">60h</td>
+                                    <td class="text-right font-bold text-slate-900 text-lg md:text-xl py-6 pr-10">15.000.000</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="py-6 pl-10 font-bold text-slate-900 text-base md:text-lg">PM, QA & Deployment</td>
+                                    <td class="text-right font-mono text-slate-600 text-base md:text-lg py-6">60h</td>
+                                    <td class="text-right font-bold text-slate-900 text-lg md:text-xl py-6 pr-10">15.000.000</td>
+                                </tr>
+                                <tr class="bg-slate-900 text-white">
+                                    <td class="font-bold text-lg md:text-xl py-8 pl-10">SUBTOTAL DEVELOPMENT</td>
+                                    <td class="text-right font-mono text-slate-300 text-lg md:text-xl py-8">460h</td>
+                                    <td class="text-right font-bold text-xl md:text-2xl py-8 pr-10">Rp 115.000.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- External Costs -->
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                        <!-- Setup Fees -->
+                        <div class="bg-orange-50 rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 border border-orange-100 hover:shadow-xl hover:shadow-orange-100/50 transition-all duration-300">
+                            <h3 class="font-bold text-xl md:text-2xl text-orange-900 mb-2 flex items-center gap-3">
+                                <span class="bg-orange-200 p-2.5 rounded-xl text-orange-700"><i data-lucide="settings" class="w-6 h-6"></i></span>
+                                2. Setup & Fees (One-Time)
+                            </h3>
+                            <p class="text-sm md:text-base text-orange-700 mb-8 font-medium">Infrastructure configuration and Store licenses.</p>
+                            
+                            <div class="space-y-4">
+                                <!-- Infra Setup with Definition -->
+                                <div class="bg-white p-5 rounded-2xl border border-orange-100 shadow-sm group relative">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-bold text-slate-900 text-sm md:text-lg flex items-center gap-2">
+                                            Infra Setup <i data-lucide="info" class="w-4 h-4 text-slate-400"></i>
+                                        </span>
+                                        <span class="font-bold text-slate-900 text-sm md:text-lg">Rp 5.500.000</span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-100 mt-2">
+                                        <strong>Includes:</strong>
+                                        <ul class="list-disc list-inside mt-1 space-y-1">
+                                            <li>Cloud Env (GCP) Configuration</li>
+                                            <li>Domain Name & SSL Security</li>
+                                            <li>Database & Storage Initialization</li>
+                                            <li>CI/CD Automation Pipelines</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <!-- App Store Breakdown -->
+                                <div class="bg-white p-5 rounded-2xl border border-orange-100 shadow-sm space-y-3">
+                                    <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="apple" class="w-4 h-4 text-slate-800"></i>
+                                            <span class="font-bold text-slate-900 text-sm md:text-base">Apple App Store</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="font-bold text-slate-900 text-sm md:text-base">Rp 1.600.000</span>
+                                            <span class="text-[10px] md:text-xs text-slate-400 block">/ Year ($99)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-1">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="play" class="w-4 h-4 text-green-600"></i>
+                                            <span class="font-bold text-slate-900 text-sm md:text-base">Google Play Store</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="font-bold text-slate-900 text-sm md:text-base">Rp 400.000</span>
+                                            <span class="text-[10px] md:text-xs text-slate-400 block">One-time ($25)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between items-center pt-6 border-t border-orange-200">
+                                    <span class="font-bold text-orange-900 text-lg md:text-xl">SUBTOTAL FEES</span>
+                                    <span class="font-extrabold text-orange-900 text-xl md:text-2xl">Rp 7.500.000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Infrastructure Calculator -->
+                        <div class="bg-blue-50 rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 border border-blue-100 hover:shadow-xl hover:shadow-blue-100/50 transition-all duration-300">
+                            <h3 class="font-bold text-xl md:text-2xl text-blue-900 mb-2 flex items-center gap-3">
+                                <span class="bg-blue-200 p-2.5 rounded-xl text-blue-700"><i data-lucide="server" class="w-6 h-6"></i></span>
+                                3. Monthly OpEx
+                            </h3>
+                            <p class="text-sm md:text-base text-blue-700 mb-6 font-medium">Running Costs Calculator (GCP + Gemini)</p>
+                            
+                            <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-sm mb-6">
+                                <label class="block text-xs md:text-sm font-bold text-slate-500 mb-3 uppercase tracking-wider">Active Students</label>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <input type="range" id="userRange" min="10" max="500" step="10" value="50" oninput="updateCost()">
+                                    <span id="userCount" class="font-mono font-bold text-blue-600 text-lg md:text-xl w-16 text-right">50</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 text-base md:text-lg text-blue-900">
+                                <div class="flex justify-between border-b border-blue-200 pb-2">
+                                    <span>Cloud Server + DB</span>
+                                    <span class="font-bold" id="fixedInfra">Rp 2.450.000</span>
+                                </div>
+                                <div class="flex justify-between border-b border-blue-200 pb-2">
+                                    <span>Media Storage</span>
+                                    <span class="font-bold" id="storageCost">...</span>
+                                </div>
+                                <div class="flex justify-between border-b border-blue-200 pb-2">
+                                    <span>AI Tokens (Gemini)</span>
+                                    <span class="font-bold" id="aiCost">...</span>
+                                </div>
+                                <div class="flex justify-between pt-2">
+                                    <span class="font-bold text-lg md:text-xl">TOTAL MONTHLY</span>
+                                    <span class="font-extrabold text-xl md:text-2xl text-blue-700" id="totalOpex">...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-white border-t border-slate-100 py-32 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="inline-flex items-center gap-4 text-3xl md:text-5xl font-bold text-slate-900 mb-10">
+                <i data-lucide="sprout" class="text-orange-500 w-8 h-8 md:w-12 md:h-12"></i> Little Bright Journey
+            </div>
+            <p class="text-xl md:text-3xl text-slate-500 mb-16 font-light max-w-2xl mx-auto">Digitizing child development, one step at a time.</p>
+            <div class="mt-24 pt-10 border-t border-slate-100 text-sm md:text-base text-slate-400 font-medium">
+                © 2026 Proposal generated by AI Dev Team.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Opex Calculator
+        function formatRupiah(num) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
+        }
+
+        function updateCost() {
+            const users = parseInt(document.getElementById('userRange').value);
+            document.getElementById('userCount').innerText = users;
+
+            // Updated Data from User for 50 Students Base
+            const baseInfra = 2450000; // ~$150 USD Fixed Infra
+            
+            // Per User Costs scaled from:
+            // Storage: $20 (325k) for 50k clips -> very low per user, setting safe buffer
+            const storagePerUser = 6500; // Safe buffer
+            
+            // AI: $300 (4.9m) for 500 kids -> ~9800 per user
+            const aiPerUser = 9800; 
+
+            const storageCost = users * storagePerUser; 
+            const aiCost = users * aiPerUser; 
+            
+            const total = baseInfra + storageCost + aiCost;
+
+            document.getElementById('storageCost').innerText = formatRupiah(storageCost);
+            document.getElementById('aiCost').innerText = formatRupiah(aiCost);
+            document.getElementById('totalOpex').innerText = formatRupiah(total);
+        }
+
+        // Init Chart (Corrected to sum to Rp 122.5M)
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCost(); 
+
+            const ctx = document.getElementById('costChart');
+            if(ctx) {
+                new Chart(ctx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Mobile App', 'Backend', 'AI Integration', 'Design', 'PM/QA', 'Setup Fees'],
+                        datasets: [{
+                            data: [40, 30, 15, 15, 15, 7.5], 
+                            backgroundColor: ['#F97316', '#3B82F6', '#A855F7', '#EC4899', '#64748B', '#10B981'],
+                            borderWidth: 0,
+                            hoverOffset: 15
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '60%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 25,
+                                    font: { family: "'Plus Jakarta Sans', sans-serif", size: 14 },
+                                    color: '#475569'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
